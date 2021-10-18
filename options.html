@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="css/options.css">
+  <title>Overseerr Options</title>
+</head>
+<body>
+  <div class="text-center h1 m-5">
+    Overseerr Options
+  </div>
+  <div class="d-flex justify-content-center">
+    <form>
+      <div class="form-group">
+        <label for="serverAPIKey">Overseerr API key</label>
+        <input type="text" class="form-control" id="serverAPIKey">
+      </div>
+      <div class="form-group">
+        <label for="serverIp">Overseerr server's host</label>
+        <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="The domain name, IP address or hostname of the PyLoad server"></i>
+        <input type="text" class="form-control" id="serverIp">
+        <div id="serverIpFeedback" class="invalid-feedback">
+          Please provide a valid host
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="serverPort">Overseerr server's port</label>
+        <input type="number" class="form-control" id="serverPort">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="useHTTPS">
+        <label class="form-check-label" for="useHTTPS">Use HTTPS</label>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div id="loginStatusOK" class="alert alert-success mt-4" hidden>
+          <i class="fa fa-check small mr-3"></i>You are logged in
+        </div>
+        <div id="loginStatusKO" class="alert alert-danger mt-4" hidden>
+          <i class="fa fa-times small mr-3"></i>You are not logged in
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="d-flex justify-content-center align-items-center" id="spinnerDiv">
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="m-2">
+      <button id="saveButton" class="btn btn-primary m-1">Save</button>
+      <button id="loginButton" class="btn btn-primary m-1" hidden>Login</button>
+    </div>
+  </div>
+
+
+  <div id="loginModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Login to Overseerr server is required, credentials will not be stored.</p>
+          <form>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password">
+            </div>
+            <div class="d-flex justify-content-center">
+              <div id="alertDanger" class="alert alert-danger m-2" hidden></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button id="loginButtonModal" type="button" class="btn btn-primary">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="js/lib/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="js/lib/popper.min.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/overseerr-api.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script src="options.js"></script>
+</html>

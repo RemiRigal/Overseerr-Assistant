@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/popup.css">
+  <link rel="stylesheet" type="text/css" href="css/all.min.css">
+  <title>Yape</title>
+</head>
+
+<body>
+  <div class="d-flex align-items-center" style="margin-bottom: 8px">
+    <div class="font-weight-bold">Current Downloads</div>
+    <div id="totalSpeed" class="font-weight-bold" style="margin-left: 4px"></div>
+    <div class="ml-auto">
+      <button id="limitSpeedButton" class="btn" disabled>
+        <i class="fa fa-infinity small"></i>
+      </button>
+      <button id="externalLinkButton" class="btn">
+        <i class="fa fa-external-link-alt small"></i>
+      </button>
+      <button id="optionsButton" class="btn">
+        <i class="fa fa-cog small"></i>
+      </button>
+    </div>
+  </div>
+  <div id="status">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-primary m-3"></div>
+    </div>
+  </div>
+
+  <div id="pageDownloadDiv" hidden>
+    <div class="dropdown-divider" style="margin: 20px 0 12px;"></div>
+
+    <label class="font-weight-bold">Page Download</label>
+    <div id="downloadDiv" class="text-center m-2" hidden>
+      <div id="downloadLabel"></div>
+      <button type="button" class="btn btn-primary" id="download" style="margin-top: 12px">Start Download</button>
+    </div>
+  </div>
+
+  <div class="text-center m-3">
+    <div class="alert alert-danger" id="error" hidden></div>
+    <div class="alert alert-success" id="success" hidden></div>
+  </div>
+
+</body>
+
+<script type="text/javascript" src="js/lib/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/overseerr-api.js"></script>
+<script type="text/javascript" src="js/storage.js"></script>
+<script src="popup.js"></script>
+</html>

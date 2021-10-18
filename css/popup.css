@@ -1,0 +1,22 @@
+html {
+    min-width: 560px;
+    min-height: 120px;
+}
+
+body {
+    min-width: 560px;
+    min-height: 120px;
+    max-width: 560px;
+    padding: 12px 16px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
