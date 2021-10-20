@@ -1,6 +1,6 @@
-function getServerStatus(callback) {
+function getLoggedUser(callback) {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', `${origin}/api/v1/status`, true);
+    xhr.open('GET', `${origin}/api/v1/auth/me`, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Api-Key', serverAPIKey);
     xhr.onreadystatechange = function() {
@@ -42,7 +42,7 @@ function search(query, callback) {
 
 function getMovie(movieId, callback) {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', `${origin}/api/v1/movie/${movieId}`, true);
+    xhr.open('GET', `${origin}/api/v1/movie/${encodeURIComponent(movieId)}`, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Api-Key', serverAPIKey);
     xhr.onreadystatechange = function() {

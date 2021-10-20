@@ -2,7 +2,7 @@
   "name": "Overseerr Extension",
   "version": "0.0.1",
   "description": "Browser extension for Overseerr",
-  "permissions": ["activeTab", "storage", "contextMenus", "scripting"],
+  "permissions": ["activeTab", "storage"],
   "host_permissions": ["http://*/", "https://*/"],
   "action": {
     "default_popup": "popup.html",
@@ -19,6 +19,18 @@
     "48": "images/icon.png",
     "128": "images/icon.png"
   },
+  "content_scripts": [{
+    "matches": ["https://www.themoviedb.org/movie/*"],
+    "css": ["css/overseerr.min.css", "css/style.css"],
+    "js": ["js/lib/jquery-3.5.1.min.js", "js/storage.js", "js/content-scripts/tmdb.js"]
+  }],
   "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [{
+    "resources": ["images/icon.png"],
+    "matches": ["<all_urls>"]
+  }],
   "manifest_version": 3
 }
