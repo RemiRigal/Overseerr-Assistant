@@ -1,6 +1,21 @@
 # Browser extension for Overseerr
 
-Browser extension for Overseerr.
+Overseerr integration for TMDB website.
+
+Features:
+- One-click requests directly from TMDB website
+- One-click access to available media
+- Monitor requests status
+
+## Install
+
+Available soon on the Chrome Web Store !
+
+## Screenshots
+
+![Screenshot-1](images/screenshot-1.png)
+![Screenshot-2](images/screenshot-2.png)
+![Screenshot-3](images/screenshot-3.png)
 
 ## License
 
