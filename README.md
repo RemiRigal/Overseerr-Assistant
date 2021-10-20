@@ -1,6 +1,6 @@
 # Browser extension for Overseerr
 
-Overseerr integration for TMDB website.
+[Overseerr](https://github.com/sct/overseerr) integration for TMDB website.
 
 Features:
 - One-click requests directly from TMDB website
