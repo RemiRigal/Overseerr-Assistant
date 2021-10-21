@@ -125,3 +125,16 @@ function insertPlexButton(plexUrl) {
         </a>
     `);
 }
+
+function insertNotLoggedInButton() {
+    overseerrContainer.append(`
+        <button id="overseerrOptions" class="relative inline-flex h-full ${textClass} items-center ml-3 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
+            transition ease-in-out duration-150 button-md overseerr-text-white border bg-transparent border-gray-400 hover:border-gray-200 focus:border-gray-100 active:border-gray-100
+            rounded-md undefined">
+          <span>No login found for Overseerr, click here to login</span>
+        </button>
+    `);
+    $('#overseerrOptions').on('click', function() {
+        chrome.runtime.sendMessage({contentScriptQuery: 'openOptionsPage'});
+    });
+}

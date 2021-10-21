@@ -17,6 +17,12 @@ if (matches !== null && matches.length > 1) {
     insertSpinner();
 
     pullStoredData(function() {
+        if (!userId) {
+            removeSpinner();
+            insertNotLoggedInButton();
+            return;
+        }
+
         chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: tmdbId, mediaType: mediaType}, json => {
             removeSpinner();
             fillContainer(json.mediaInfo);

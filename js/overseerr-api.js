@@ -1,5 +1,7 @@
+let xhr = null;
+
 function getLoggedUser(callback) {
-    let xhr = new XMLHttpRequest();
+    xhr = new XMLHttpRequest();
     xhr.open('GET', `${origin}/api/v1/auth/me`, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Api-Key', serverAPIKey);
@@ -16,6 +18,7 @@ function getLoggedUser(callback) {
             } catch {
                 if (callback) callback(false, 'Server unreachable');
             }
+            xhr = null;
         }
     }
     xhr.timeout = 5000;

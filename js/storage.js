@@ -15,15 +15,11 @@ function pullStoredData(callback) {
 
 function isLoggedIn(callback) {
     getLoggedUser(function(success, errorMsg, response) {
-        if (callback) {
-            if (success) {
-                userId = response.id;
-                chrome.storage.sync.set({
-                    userId: userId
-                });
-            }
-            callback(success);
-        }
+        userId = success ? response.id : null;
+        chrome.storage.sync.set({
+            userId: userId
+        });
+        if (callback) callback(success, userId);
     });
 }
 

@@ -40,4 +40,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         });
         return true;
     }
+
+    else if (request.contentScriptQuery === 'openOptionsPage') {
+        chrome.runtime.openOptionsPage();
+        return true;
+    }
 });

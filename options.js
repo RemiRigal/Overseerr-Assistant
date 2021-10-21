@@ -15,7 +15,7 @@ let alertDanger = document.getElementById('alertDanger');
 function enableSpinner() {
     spinnerDiv.innerHTML = `
         <div class="spinner-border text-primary m-3"></div>
-        <div>Checking status...</div>
+        <div class="text-white">Checking status...</div>
     `;
 }
 
@@ -101,6 +101,9 @@ function validateForm() {
 }
 
 function requireSaving() {
+    if (xhr !== null) {
+        xhr.abort();
+    }
     if (serverIpInput.value === serverIp &&
         parseInt(serverPortInput.value) === parseInt(serverPort) &&
         useHTTPSInput.checked === (serverProtocol === 'https') &&
