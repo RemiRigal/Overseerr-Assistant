@@ -5,3 +5,13 @@
 form {
     min-width: 300px;
 }
+
+.overseerr-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}

@@ -3,7 +3,7 @@ let serverAPIKey, serverPort, serverIp, serverProtocol, origin, userId;
 
 function pullStoredData(callback) {
     chrome.storage.sync.get(['serverAPIKey', 'serverIp', 'serverPort', 'serverProtocol', 'userId'], function(data) {
-        serverAPIKey = data.apiKey || '';
+        serverAPIKey = data.serverAPIKey || '';
         serverIp = data.serverIp || '172.0.0.1';
         serverPort = data.serverPort || 8001;
         serverProtocol = data.serverProtocol || 'http';

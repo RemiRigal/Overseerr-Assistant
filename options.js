@@ -9,11 +9,7 @@ let loginStatusOKDiv = document.getElementById('loginStatusOK');
 let loginStatusKODiv = document.getElementById('loginStatusKO');
 
 let saveButton = document.getElementById('saveButton');
-let loginButton = document.getElementById('loginButton');
-let loginButtonModal = document.getElementById('loginButtonModal');
 let alertDanger = document.getElementById('alertDanger');
-
-let loginModal = $('#loginModal');
 
 
 function enableSpinner() {
@@ -50,13 +46,11 @@ function updateLoggedInStatus(callback) {
     saveButton.disabled = true;
     loginStatusOKDiv.hidden = true;
     loginStatusKODiv.hidden = true;
-    loginButton.hidden = true;
     enableSpinner();
     isLoggedIn(function(loggedIn) {
         disableSpinner();
         loginStatusOKDiv.hidden = !loggedIn;
         loginStatusKODiv.hidden = loggedIn;
-        loginButton.hidden = loggedIn;
         saveButton.disabled = false;
         if (callback) callback();
     });
@@ -83,29 +77,41 @@ function requestPermission(callback) {
     });
 }
 
-function validateServerIP() {
+function validateForm() {
+    // Host
     const value = serverIpInput.value;
     const isValidIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(value);
     const isValidName = /^(?!:\/\/)([a-zA-Z0-9]+\.)?[a-zA-Z0-9][a-zA-Z0-9-]+\.[a-zA-Z]{2,6}?$/i.test(value);
     const isLocalhost = (value === 'localhost');
-    if (isValidIP || isValidName || isLocalhost) {
+    const isServerIPValid = isValidIP || isValidName || isLocalhost;
+    if (isServerIPValid) {
         serverIpInput.classList.remove('is-invalid');
     } else {
         serverIpInput.classList.add('is-invalid');
         saveButton.disabled = true;
     }
+    // API key
+    const isValidAPIKey = /\w{60,70}/.test(serverAPIKeyInput.value);
+    if (isValidAPIKey) {
+        serverAPIKeyInput.classList.remove('is-invalid');
+    } else {
+        serverAPIKeyInput.classList.add('is-invalid');
+        saveButton.disabled = true;
+    }
 }
 
 function requireSaving() {
-    if (serverIpInput.value === serverIp && parseInt(serverPortInput.value) === parseInt(serverPort) && useHTTPSInput.checked === (serverProtocol === 'https')) {
+    if (serverIpInput.value === serverIp &&
+        parseInt(serverPortInput.value) === parseInt(serverPort) &&
+        useHTTPSInput.checked === (serverProtocol === 'https') &&
+        serverAPIKeyInput.value === serverAPIKey) {
         updateLoggedInStatus();
     } else {
         saveButton.disabled = false;
         loginStatusOKDiv.hidden = true;
         loginStatusKODiv.hidden = true;
-        loginButton.hidden = true;
     }
-    validateServerIP();
+    validateForm();
 }
 
 saveButton.onclick = function(ev) {
@@ -115,22 +121,6 @@ saveButton.onclick = function(ev) {
         });
     });
 };
-
-loginButton.onclick = function(ev) {
-    loginModal.modal('show');
-}
-
-loginButtonModal.onclick = function(ev) {
-    setDangerMessage('');
-    login(usernameInput.value, passwordInput.value, function(success, error_msg) {
-        if (success) {
-            loginModal.modal('hide');
-            updateLoggedInStatus();
-        } else {
-            setDangerMessage(error_msg, 0);
-        }
-    });
-}
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
