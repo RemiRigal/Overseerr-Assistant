@@ -6,6 +6,7 @@ Features:
 - One-click requests directly from TMDB and IMDb websites
 - One-click access to available media on Plex
 - Monitor requests status
+- Support for both movies and TV shows
 
 ## Install
 

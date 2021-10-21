@@ -1,10 +1,10 @@
 importScripts('js/storage.js');
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.contentScriptQuery === 'queryMovie') {
-        console.log(`Querying movie ${request.tmdbId}`);
+    if (request.contentScriptQuery === 'queryMedia') {
+        console.log(`Querying ${request.mediaType} '${request.tmdbId}'`);
         pullStoredData(function() {
-            fetch(`${origin}/api/v1/movie/${encodeURIComponent(request.tmdbId)}`)
+            fetch(`${origin}/api/v1/${request.mediaType}/${encodeURIComponent(request.tmdbId)}`)
                 .then(response => response.json())
                 .then(json => sendResponse(json))
                 .catch(error => console.error(error))
@@ -12,8 +12,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         return true;
     }
 
-    else if (request.contentScriptQuery === 'requestMovie') {
-        console.log(`Requesting movie ${request.tmdbId}`);
+    else if (request.contentScriptQuery === 'requestMedia') {
+        console.log(`Requesting media '${request.tmdbId}'`);
         pullStoredData(function() {
            fetch(`${origin}/api/v1/request`, {
                 method: 'POST',

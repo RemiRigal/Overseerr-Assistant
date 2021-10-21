@@ -67,7 +67,7 @@ function insertRequestButton() {
     $('#overseerrRequest').on('click', function() {
         removeRequestButton();
         insertSpinner();
-        chrome.runtime.sendMessage({contentScriptQuery: 'requestMovie', tmdbId: tmdbId}, json => {
+        chrome.runtime.sendMessage({contentScriptQuery: 'requestMedia', tmdbId: tmdbId, mediaType: mediaType}, json => {
             console.log(json);
             initializeContainer();
             if (!json.media.hasOwnProperty('requests')) {
@@ -86,7 +86,7 @@ function removeRequestButton() {
 function insertRequestedButton() {
     overseerrContainer.append(`
         <div id="overseerrRequest" class="relative inline-flex h-full ${textClass} items-center px-4 py-2 leading-5 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none transition
-            ease-in-out duration-150 button-md overseerr-text-white border bg-indigo-600 border-indigo-600 rounded-md ml-2" href="${origin}/movie/${tmdbId}">
+            ease-in-out duration-150 button-md overseerr-text-white border bg-indigo-600 border-indigo-600 rounded-md ml-2" href="${origin}/${mediaType}/${tmdbId}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 sm:w-4 sm:h-4">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
           </svg>
@@ -98,14 +98,14 @@ function insertRequestedButton() {
 function insertStatusButton(statusText, requestCount) {
     overseerrContainer.append(`
         <a class="flex group items-center px-4 py-2 ${textClass} leading-6 font-medium rounded${requestCount > 0 ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
-            bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${origin}/movie/${tmdbId}" target="_blank">
+            bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
           ${statusText}
         </a>
     `);
     if (requestCount > 0) {
         overseerrContainer.append(`
             <a class="flex group items-center px-4 py-2 ${textClass} leading-6 font-medium rounded-r-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
-                bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${requestCountBackground}" href="${origin}/movie/${tmdbId}" target="_blank">
+                bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${requestCountBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
               ${requestCount} request${requestCount > 1 ? 's' : ''}
             </a>
         `);
