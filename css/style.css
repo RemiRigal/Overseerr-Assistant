@@ -29,3 +29,12 @@
         -webkit-transform: rotate(360deg);
     }
 }
+
+.overseerr-text-white {
+    color: white !important;
+}
+
+.overseerr-border {
+    border: 5px;
+    border-color: white;
+}

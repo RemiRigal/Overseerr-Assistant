@@ -26,4 +26,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         });
         return true;
     }
+
+    else if (request.contentScriptQuery === 'search') {
+        console.log(`Searching movie '${request.title}'`);
+        pullStoredData(function() {
+            fetch(`${origin}/api/v1/search?query=${encodeURIComponent(request.title)}`)
+                .then(response => response.json())
+                .then(json => sendResponse(json))
+                .catch(error => console.error(error));
+        });
+        return true;
+    }
 });
