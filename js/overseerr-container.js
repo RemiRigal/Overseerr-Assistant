@@ -2,6 +2,7 @@ let containerOptions = {
     anchorElement: 'body',
     textClass: '',
     containerClass: '',
+    plexButtonClass: 'bg-transparent',
     requestCountBackground: '#313131'
 };
 
@@ -15,7 +16,7 @@ const mediaStatus = {
 
 function initializeContainer() {
     if (overseerrContainer) overseerrContainer.remove();
-    overseerrContainer = $(`<div class="overseerr-container flex row ${containerOptions.containerClass} items-center">
+    overseerrContainer = $(`<div class="overseerr-container flex flex-row ${containerOptions.containerClass} items-center">
          <img id="overseerrStatus" class="overseerr-icon" src="${chrome.runtime.getURL('images/icon.png')}" alt="Overseerr icon">
        </div>
     `);
@@ -121,8 +122,8 @@ function insertStatusButton(statusText, requestCount) {
 
 function insertPlexButton(plexUrl) {
     overseerrContainer.append(`
-        <a class="relative inline-flex h-full ${containerOptions.textClass} items-center ml-4 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
-            transition ease-in-out duration-150 button-md overseerr-text-white border bg-transparent border-gray-400 hover:border-gray-200 focus:border-gray-100 active:border-gray-100
+        <a class="relative inline-flex h-full ${containerOptions.textClass} ${containerOptions.plexButtonClass} items-center ml-4 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20
+            focus:outline-none transition ease-in-out duration-150 button-md overseerr-text-white border border-gray-400 hover:border-gray-200 focus:border-gray-100 active:border-gray-100
             rounded-md undefined" href="${plexUrl}" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
