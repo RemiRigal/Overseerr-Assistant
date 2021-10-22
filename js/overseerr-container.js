@@ -1,3 +1,10 @@
+let containerOptions = {
+    anchorElement: 'body',
+    textClass: '',
+    containerClass: '',
+    requestCountBackground: '#313131'
+};
+
 const mediaStatus = {
     1: 'Unknown',
     2: 'Pending',
@@ -8,11 +15,11 @@ const mediaStatus = {
 
 function initializeContainer() {
     if (overseerrContainer) overseerrContainer.remove();
-    overseerrContainer = $(`<div class="overseerr-container flex row ${containerClass} items-center">
+    overseerrContainer = $(`<div class="overseerr-container flex row ${containerOptions.containerClass} items-center">
          <img id="overseerrStatus" class="overseerr-icon" src="${chrome.runtime.getURL('images/icon.png')}" alt="Overseerr icon">
        </div>
     `);
-    overseerrContainer.insertAfter($(anchorElement));
+    overseerrContainer.insertAfter($(containerOptions.anchorElement));
 }
 
 function fillContainer(mediaInfo) {
@@ -55,7 +62,7 @@ function removeSpinner() {
 
 function insertRequestButton() {
     overseerrContainer.append(`
-        <a id="overseerrRequest" class="relative inline-flex h-full ${textClass} items-center px-4 py-2 leading-5 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none transition
+        <a id="overseerrRequest" class="relative inline-flex h-full ${containerOptions.textClass} items-center px-4 py-2 leading-5 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none transition
             ease-in-out duration-150 button-md overseerr-text-white border bg-indigo-600 border-indigo-600 hover:bg-indigo-500 hover:border-indigo-500 active:bg-indigo-700
             active:border-indigo-700 focus:ring-blue rounded-md ml-2" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +92,7 @@ function removeRequestButton() {
 
 function insertRequestedButton() {
     overseerrContainer.append(`
-        <div id="overseerrRequest" class="relative inline-flex h-full ${textClass} items-center px-4 py-2 leading-5 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none transition
+        <div id="overseerrRequest" class="relative inline-flex h-full ${containerOptions.textClass} items-center px-4 py-2 leading-5 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none transition
             ease-in-out duration-150 button-md overseerr-text-white border bg-indigo-600 border-indigo-600 rounded-md ml-2" href="${origin}/${mediaType}/${tmdbId}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 sm:w-4 sm:h-4">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
@@ -97,15 +104,15 @@ function insertRequestedButton() {
 
 function insertStatusButton(statusText, requestCount) {
     overseerrContainer.append(`
-        <a class="flex group items-center px-4 py-2 ${textClass} leading-6 font-medium rounded${requestCount > 0 ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
+        <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded${requestCount > 0 ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
             bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
           ${statusText}
         </a>
     `);
     if (requestCount > 0) {
         overseerrContainer.append(`
-            <a class="flex group items-center px-4 py-2 ${textClass} leading-6 font-medium rounded-r-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
-                bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${requestCountBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
+            <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded-r-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
+                bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${containerOptions.requestCountBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
               ${requestCount} request${requestCount > 1 ? 's' : ''}
             </a>
         `);
@@ -114,7 +121,7 @@ function insertStatusButton(statusText, requestCount) {
 
 function insertPlexButton(plexUrl) {
     overseerrContainer.append(`
-        <a class="relative inline-flex h-full ${textClass} items-center ml-4 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
+        <a class="relative inline-flex h-full ${containerOptions.textClass} items-center ml-4 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
             transition ease-in-out duration-150 button-md overseerr-text-white border bg-transparent border-gray-400 hover:border-gray-200 focus:border-gray-100 active:border-gray-100
             rounded-md undefined" href="${plexUrl}" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -128,7 +135,7 @@ function insertPlexButton(plexUrl) {
 
 function insertNotLoggedInButton() {
     overseerrContainer.append(`
-        <button id="overseerrOptions" class="relative inline-flex h-full ${textClass} items-center ml-3 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
+        <button id="overseerrOptions" class="relative inline-flex h-full ${containerOptions.textClass} items-center ml-3 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
             transition ease-in-out duration-150 button-md overseerr-text-white border bg-transparent border-gray-400 hover:border-gray-200 focus:border-gray-100 active:border-gray-100
             rounded-md undefined">
           <span>No login found for Overseerr, click here to login</span>
