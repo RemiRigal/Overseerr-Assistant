@@ -1,8 +1,8 @@
 # Overseerr Assistant
 
-[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/yape/lbbofcfllogcmffofacfoiolglncdcgb)
-[![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/yape/lbbofcfllogcmffofacfoiolglncdcgb/reviews)
-[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/yape/lbbofcfllogcmffofacfoiolglncdcgb/reviews)
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij)
+[![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 
 Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr). It provides an integration for TMDB and IMDb websites.
 
