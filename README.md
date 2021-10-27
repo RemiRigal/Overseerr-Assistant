@@ -1,16 +1,20 @@
-# Browser extension for Overseerr
+# Overseerr Assistant
 
-[Overseerr](https://github.com/sct/overseerr) integration for TMDB and IMDb websites.
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/yape/lbbofcfllogcmffofacfoiolglncdcgb)
+[![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/yape/lbbofcfllogcmffofacfoiolglncdcgb/reviews)
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/yape/lbbofcfllogcmffofacfoiolglncdcgb/reviews)
+
+Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr). It provides an integration for TMDB and IMDb websites.
 
 Features:
-- One-click requests directly from TMDB and IMDb websites
+- One-click Overseerr requests directly from TMDB and IMDb websites
 - One-click access to available media on Plex
 - Monitor requests status
 - Support for both movies and TV shows
 
 ## Install
 
-Available soon on the Chrome Web Store !
+**[Available on the Chrome Web Store](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij)**  
 
 ## Screenshots
 
@@ -25,4 +29,4 @@ Available soon on the Chrome Web Store !
 
 ## License
 
-Overseerr Extension is licensed under the [MIT License](https://github.com/RemiRigal/Overseerr-Extension/blob/master/LICENSE).
+Overseerr Extension is licensed under the [MIT License](LICENSE).
