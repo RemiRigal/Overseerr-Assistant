@@ -9,7 +9,6 @@ function getLoggedUser(callback) {
         if (xhr.readyState === 4) {
             try {
                 const response = JSON.parse(xhr.responseText);
-                console.log(response);
                 if (response.hasOwnProperty('error')) {
                     if (callback) callback(false, response.error);
                 } else {

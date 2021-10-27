@@ -92,14 +92,12 @@ function insertRequestButton() {
                 .map((season) => season.seasonNumber)
                 .filter((season) => season > 0);
         }
-        console.log(seasons);
         chrome.runtime.sendMessage({
             contentScriptQuery: 'requestMedia',
             tmdbId: tmdbId,
             mediaType: mediaType,
             seasons: seasons
         }, json => {
-            console.log(json);
             initializeContainer();
             if (!json.hasOwnProperty('media')) {
                 insertStatusButton('Error');
