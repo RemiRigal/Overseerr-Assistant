@@ -1,9 +1,9 @@
-let overseerrContainer, imdbId, tmdbId, mediaType;
+let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = 'div.WatchlistButton__ButtonParent-sc-1fmni0g-0.hbeiyJ';
 containerOptions.textClass = 'text-sm';
 containerOptions.containerClass = 'mt-2 py-2';
-containerOptions.requestCountBackground = '#313131';
+containerOptions.badgeBackground = '#313131';
 
 const imdbRegex = /\/title\/(tt\d+)(?:\/|$).*/;
 let matches = document.location.pathname.match(imdbRegex);
@@ -33,6 +33,7 @@ if (matches !== null && matches.length > 1) {
             mediaType = firstResult.mediaType;
             chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
                 if (imdbId === json.externalIds.imdbId) {
+                    mediaInfo = json;
                     tmdbId = json.id;
                     console.log(`TMDB id: ${tmdbId}`);
                     removeSpinner();

@@ -1,8 +1,8 @@
-let overseerrContainer, tmdbId, mediaType;
+let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = 'ul.auto.actions';
 containerOptions.containerClass = 'py-2';
-containerOptions.requestCountBackground = '#032541';
+containerOptions.badgeBackground = '#032541';
 
 mediaType = document.location.pathname.startsWith('/movie') ? 'movie' : 'tv';
 
@@ -21,8 +21,8 @@ if (matches !== null && matches.length > 1) {
             insertNotLoggedInButton();
             return;
         }
-
         chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: tmdbId, mediaType: mediaType}, json => {
+            mediaInfo = json;
             removeSpinner();
             fillContainer(json.mediaInfo);
         });

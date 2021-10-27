@@ -14,12 +14,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 
     else if (request.contentScriptQuery === 'requestMedia') {
-        console.log(`Requesting media '${request.tmdbId}'`);
+        console.log(`Requesting media '${request.tmdbId}' of type '${request.mediaType}'`);
         pullStoredData(function() {
             const options = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json', 'X-Api-Key': serverAPIKey},
-                body: JSON.stringify({mediaType: 'movie', mediaId: request.tmdbId})
+                body: JSON.stringify({mediaType: request.mediaType, mediaId: request.tmdbId, seasons: request.seasons})
             };
             fetch(`${origin}/api/v1/request`, options)
                 .then(response => response.json())

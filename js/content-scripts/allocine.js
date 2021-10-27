@@ -1,12 +1,13 @@
-let overseerrContainer, allocineId, tmdbId, mediaType;
+let overseerrContainer, allocineId, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = 'div.bam-container';
 containerOptions.textClass = 'text-sm';
 containerOptions.containerClass = 'mt-2 py-2';
 containerOptions.plexButtonClass = 'bg-gray-800';
-containerOptions.requestCountBackground = '#032541';
+containerOptions.badgeBackground = '#032541';
 
 mediaType = document.location.pathname.startsWith('/film') ? 'movie' : 'tv';
+console.log(mediaType);
 
 const allocineRegex = /\/(?:film|series)\/\w*=(\d+)(?:\w|-|.)*/;
 let matches = document.location.pathname.match(allocineRegex);
@@ -35,6 +36,8 @@ if (matches !== null && matches.length > 1) {
             const firstResult = json.results[0];
             mediaType = firstResult.mediaType;
             chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
+                console.log(json);
+                mediaInfo = json;
                 tmdbId = json.id;
                 console.log(`TMDB id: ${tmdbId}`);
                 removeSpinner();

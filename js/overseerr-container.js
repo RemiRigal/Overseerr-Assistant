@@ -3,7 +3,7 @@ let containerOptions = {
     textClass: '',
     containerClass: '',
     plexButtonClass: 'bg-transparent',
-    requestCountBackground: '#313131'
+    badgeBackground: '#313131'
 };
 
 const mediaStatus = {
@@ -20,7 +20,8 @@ function initializeContainer() {
          <img id="overseerrStatus" class="overseerr-icon" src="${chrome.runtime.getURL('images/icon.png')}" alt="Overseerr icon">
        </div>
     `);
-    overseerrContainer.insertAfter($(containerOptions.anchorElement));
+    let anchor = $(`${containerOptions.anchorElement}:first`);
+    overseerrContainer.insertAfter(anchor);
 }
 
 function fillContainer(mediaInfo) {
@@ -43,6 +44,16 @@ function fillContainer(mediaInfo) {
             insertStatusButton(mediaStatus[status], requestCount);
             if (!requestedByCurrentUser) insertRequestButton();
             else insertRequestedButton();
+            break;
+        case 4: // Partially Available
+            let availableSeasons = [];
+            if (mediaInfo.mediaType === 'tv') {
+                availableSeasons = mediaInfo.seasons
+                    .filter((season) => season.status === 5)
+                    .map((season) => season.seasonNumber);
+            }
+            insertStatusButton(mediaStatus[status], null, availableSeasons)
+            insertPlexButton(plexUrl);
             break;
         case 5: // Available
             insertStatusButton(mediaStatus[status]);
@@ -75,9 +86,25 @@ function insertRequestButton() {
     $('#overseerrRequest').on('click', function() {
         removeRequestButton();
         insertSpinner();
-        chrome.runtime.sendMessage({contentScriptQuery: 'requestMedia', tmdbId: tmdbId, mediaType: mediaType}, json => {
+        let seasons = [];
+        if (mediaType === 'tv' && mediaInfo.hasOwnProperty('seasons')) {
+            seasons = mediaInfo.seasons
+                .map((season) => season.seasonNumber)
+                .filter((season) => season > 0);
+        }
+        console.log(seasons);
+        chrome.runtime.sendMessage({
+            contentScriptQuery: 'requestMedia',
+            tmdbId: tmdbId,
+            mediaType: mediaType,
+            seasons: seasons
+        }, json => {
             console.log(json);
             initializeContainer();
+            if (!json.hasOwnProperty('media')) {
+                insertStatusButton('Error');
+                return;
+            }
             if (!json.media.hasOwnProperty('requests')) {
                 json.media.requests = [];
             }
@@ -103,18 +130,25 @@ function insertRequestedButton() {
     `);
 }
 
-function insertStatusButton(statusText, requestCount) {
+function insertStatusButton(statusText, requestCount, availableSeasons) {
+    const hasBadge = requestCount > 0 || (availableSeasons && availableSeasons.length > 0);
     overseerrContainer.append(`
-        <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded${requestCount > 0 ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
+        <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded${hasBadge ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
             bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
           ${statusText}
         </a>
     `);
-    if (requestCount > 0) {
+    if (hasBadge) {
+        let text = '';
+        if (requestCount > 0) {
+            text = `${requestCount} request${requestCount > 1 ? 's' : ''}`;
+        } else if (availableSeasons && availableSeasons.length > 0) {
+            text = `Season${availableSeasons.length > 1 ? 's' : ''} ${availableSeasons.join('-')}`;
+        }
         overseerrContainer.append(`
             <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded-r-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
-                bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${containerOptions.requestCountBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
-              ${requestCount} request${requestCount > 1 ? 's' : ''}
+                bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${containerOptions.badgeBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
+              ${text}
             </a>
         `);
     }
