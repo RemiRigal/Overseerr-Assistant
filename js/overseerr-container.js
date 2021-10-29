@@ -26,7 +26,7 @@ function initializeContainer() {
 
 function fillContainer(mediaInfo) {
     const status = mediaInfo ? mediaInfo.status : 0;
-    const plexUrl = mediaInfo ? mediaInfo.plexUrl : '';
+    const plexUrl = mediaInfo ? mediaInfo.plexUrl : origin;
     const requestCount = status > 0 ? mediaInfo.requests.length : 0;
     let requestedByCurrentUser = false;
     if (requestCount > 0) {
@@ -76,7 +76,7 @@ function insertRequestButton() {
     overseerrContainer.append(`
         <a id="overseerrRequest" class="relative inline-flex h-full ${containerOptions.textClass} items-center px-4 py-2 leading-5 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none transition
             ease-in-out duration-150 button-md overseerr-text-white border bg-indigo-600 border-indigo-600 hover:bg-indigo-500 hover:border-indigo-500 active:bg-indigo-700
-            active:border-indigo-700 focus:ring-blue rounded-md ml-2" href="#">
+            active:border-indigo-700 focus:ring-blue rounded-md ml-2" href="javascript:;">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
           </svg>
@@ -130,9 +130,10 @@ function insertRequestedButton() {
 
 function insertStatusButton(statusText, requestCount, availableSeasons) {
     const hasBadge = requestCount > 0 || (availableSeasons && availableSeasons.length > 0);
+    const href = tmdbId ? `${origin}/${mediaType}/${tmdbId}` : origin;
     overseerrContainer.append(`
         <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded${hasBadge ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
-            bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
+            bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${href}" target="_blank">
           ${statusText}
         </a>
     `);

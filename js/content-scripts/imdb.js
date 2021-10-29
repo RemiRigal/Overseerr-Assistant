@@ -12,6 +12,7 @@ if (matches !== null && matches.length > 1) {
     console.log(`IMDb id: ${imdbId}`);
 
     let title = $('h1.TitleHeader__TitleText-sc-1wu6n3d-0.dxSWFG').text();
+    let releaseYear = parseInt($('a.TitleBlockMetaData__StyledTextLink-sc-12ein40-1.rgaOW').text());
 
     initializeContainer();
     insertSpinner();
@@ -24,9 +25,12 @@ if (matches !== null && matches.length > 1) {
         }
 
         chrome.runtime.sendMessage({contentScriptQuery: 'search', title: title}, json => {
+            json.results = json.results
+                .filter((result) => result.mediaType === 'movie' || result.mediaType === 'tv')
+                .filter((result) => result.releaseDate && parseInt(result.releaseDate.slice(0, 4)) === releaseYear);
             if (json.results.length === 0) {
                 removeSpinner();
-                insertStatusButton('Not found', 0);
+                insertStatusButton('Media not found', 0);
                 return;
             }
             const firstResult = json.results[0];
