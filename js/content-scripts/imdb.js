@@ -12,7 +12,7 @@ if (matches !== null && matches.length > 1) {
     console.log(`IMDb id: ${imdbId}`);
 
     let title = $('h1.TitleHeader__TitleText-sc-1wu6n3d-0.dxSWFG').text();
-    let releaseYear = parseInt($('a.TitleBlockMetaData__StyledTextLink-sc-12ein40-1.rgaOW').text());
+    let releaseYear = parseInt($('a.TitleBlockMetaData__StyledTextLink-sc-12ein40-1.rgaOW:first').text());
 
     initializeContainer();
     insertSpinner();
@@ -44,7 +44,7 @@ if (matches !== null && matches.length > 1) {
                     fillContainer(json.mediaInfo);
                 } else {
                     removeSpinner();
-                    insertStatusButton('Not found', 0);
+                    insertStatusButton('Media not found', 0);
                 }
             });
         });
