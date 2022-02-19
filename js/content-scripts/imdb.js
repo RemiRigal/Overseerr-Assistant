@@ -6,14 +6,14 @@ containerOptions.containerClass = 'mt-2 py-2';
 containerOptions.badgeBackground = '#313131';
 
 const imdbRegex = /\/title\/(tt\d+)(?:\/|$).*/;
-let matches = document.location.pathname.match(imdbRegex);
+let matches = ($("a[data-testid='hero-title-block__series-link']").attr( "href" ) || document.location.pathname).match(imdbRegex);
 if (matches !== null && matches.length > 1) {
     imdbId = matches[1];
     console.log(`IMDb id: ${imdbId}`);
 
-    let title = ($("div[data-testid='hero-title-block__original-title']").text() || $("h1").text()).replace('Original title: ', '');
-    let releaseYear = parseInt($("ul[data-testid='hero-title-block__metadata'] li a[href*='/releaseinfo']").text().split("-")[0]);
-    // console.log(title, releaseYear)
+    let title = ($("a[data-testid='hero-title-block__series-link']").text() || $("div[data-testid='hero-title-block__original-title']").text() || $("h1").text()).replace('Original title: ', '');
+    let releaseYear = parseInt($("ul[data-testid='hero-title-block__metadata'] li a[href*='/releaseinfo']").text().split("-")[0]) || null;
+    console.log(title, releaseYear)
 
     initializeContainer();
     insertSpinner();
@@ -29,6 +29,9 @@ if (matches !== null && matches.length > 1) {
             json.results = json.results
                 .filter((result) => result.mediaType === 'movie' || result.mediaType === 'tv')
                 .filter((result) => {
+                    if(!releaseYear) {
+                        return true;
+                    }
                     let date = result.releaseDate || result.firstAirDate || null;
                     return date && parseInt(date.slice(0, 4)) === releaseYear;
                 });
