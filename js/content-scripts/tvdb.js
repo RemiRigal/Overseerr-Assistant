@@ -54,7 +54,6 @@ if(tmdbMatch.length > 0 || imdbMatch.length > 1) {
                     return;
                 }
                 const firstResult = json.results[0];
-                mediaType = firstResult.mediaType;
                 chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
                     if (imdbId === json.externalIds.imdbId) {
                         mediaInfo = json;
