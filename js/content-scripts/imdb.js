@@ -1,6 +1,6 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = 'div.WatchlistButton__ButtonParent-sc-1fmni0g-0.hbeiyJ';
+containerOptions.anchorElement = "div[class*='WatchlistButton__ButtonParent']";
 containerOptions.textClass = 'text-sm';
 containerOptions.containerClass = 'mt-2 py-2';
 containerOptions.badgeBackground = '#313131';
