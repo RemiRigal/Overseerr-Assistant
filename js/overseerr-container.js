@@ -132,7 +132,7 @@ function insertStatusButton(statusText, requestCount, availableSeasons) {
     const hasBadge = requestCount > 0 || (availableSeasons && availableSeasons.length > 0);
     const href = tmdbId ? `${origin}/${mediaType}/${tmdbId}` : origin;
     overseerrContainer.append(`
-        <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded${hasBadge ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
+        <a class="flex h-full group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded${hasBadge ? '-l' : ''}-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
             bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500" href="${href}" target="_blank">
           ${statusText}
         </a>
@@ -145,7 +145,7 @@ function insertStatusButton(statusText, requestCount, availableSeasons) {
             text = `Season${availableSeasons.length > 1 ? 's' : ''} ${availableSeasons.join('-')}`;
         }
         overseerrContainer.append(`
-            <a class="flex group items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded-r-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
+            <a class="flex group h-full items-center px-4 py-2 ${containerOptions.textClass} leading-6 font-medium rounded-r-md overseerr-text-white focus:outline-none transition ease-in-out duration-150
                 bg-gradient-to-br from-gray-800 to-gray-900 hover:from-indigo-500 hover:to-purple-500" style="background: ${containerOptions.badgeBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
               ${text}
             </a>
@@ -172,7 +172,7 @@ function insertNotLoggedInButton() {
         <button id="overseerrOptions" class="relative inline-flex h-full ${containerOptions.textClass} items-center ml-3 px-4 py-2 leading-6 font-medium z-10 hover:z-20 focus:z-20 focus:outline-none
             transition ease-in-out duration-150 button-md overseerr-text-white border bg-transparent border-gray-400 hover:border-gray-200 focus:border-gray-100 active:border-gray-100
             rounded-md undefined">
-          <span>No login found for Overseerr, click here to login</span>
+          <span>Login to Overseerr</span>
         </button>
     `);
     $('#overseerrOptions').on('click', function() {
