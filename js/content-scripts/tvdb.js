@@ -8,7 +8,6 @@ mediaType = document.location.pathname.startsWith('/movies') ? 'movie' : 'tv';
 let tmdbMatch = ($("a[href*='themoviedb']", $('#series_basic_info')).attr( "href" ) || '').match(/(\d+)(?:\/|$).*/) || [];
 let imdbMatch = ($("a[href*='/title/tt']", $('#series_basic_info')).attr( "href" ) || '').match(/\/title\/(tt\d+)(?:\/|$).*/) || [];
 
-console.log(tmdbMatch, imdbMatch);
 if(tmdbMatch.length > 0 || imdbMatch.length > 1) {
     initializeContainer();
     insertSpinner();
