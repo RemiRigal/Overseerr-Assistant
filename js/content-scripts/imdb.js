@@ -11,8 +11,9 @@ if (matches !== null && matches.length > 1) {
     imdbId = matches[1];
     console.log(`IMDb id: ${imdbId}`);
 
-    let title = $('h1.TitleHeader__TitleText-sc-1wu6n3d-0.dxSWFG').text();
-    let releaseYear = parseInt($('a.TitleBlockMetaData__StyledTextLink-sc-12ein40-1.rgaOW:first').text());
+    let title = ($("div[data-testid='hero-title-block__original-title']").text() || $("h1").text()).replace('Original title: ', '');
+    let releaseYear = parseInt($("ul[data-testid='hero-title-block__metadata'] li a[href*='/releaseinfo']").text().split("-")[0]);
+    // console.log(title, releaseYear)
 
     initializeContainer();
     insertSpinner();
@@ -27,7 +28,10 @@ if (matches !== null && matches.length > 1) {
         chrome.runtime.sendMessage({contentScriptQuery: 'search', title: title}, json => {
             json.results = json.results
                 .filter((result) => result.mediaType === 'movie' || result.mediaType === 'tv')
-                .filter((result) => result.releaseDate && parseInt(result.releaseDate.slice(0, 4)) === releaseYear);
+                .filter((result) => {
+                    let date = result.releaseDate || result.firstAirDate || null;
+                    return date && parseInt(date.slice(0, 4)) === releaseYear;
+                });
             if (json.results.length === 0) {
                 removeSpinner();
                 insertStatusButton('Media not found', 0);
