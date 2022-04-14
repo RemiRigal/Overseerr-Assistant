@@ -21,6 +21,9 @@ function initializeContainer() {
        </div>
     `);
     let anchor = $(`${containerOptions.anchorElement}:first`);
+    if (!anchor) {
+        console.error('Anchor element not found for Overseerr container');
+    }
     overseerrContainer.insertAfter(anchor);
 }
 

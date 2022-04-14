@@ -1,6 +1,6 @@
 {
   "name": "Overseerr Assistant",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Browser extension for Overseerr that embeds buttons into IMDb and TMDB web pages to easily request movies and tv shows.",
   "permissions": ["activeTab", "storage"],
   "host_permissions": ["http://*/", "https://*/"],
@@ -39,6 +39,10 @@
     "matches": ["https://letterboxd.com/film/*"],
     "css": ["css/overseerr.min.css", "css/style.css"],
     "js": ["js/lib/jquery-3.5.1.min.js", "js/storage.js", "js/overseerr-container.js", "js/content-scripts/letterboxd.js"]
+  },{
+    "matches": ["https://app.plex.tv/desktop/*"],
+    "css": ["css/overseerr.min.css", "css/style.css"],
+    "js": ["js/lib/jquery-3.5.1.min.js", "js/storage.js", "js/overseerr-container.js", "js/content-scripts/plex.js"]
   }],
   "options_page": "options.html",
   "background": {

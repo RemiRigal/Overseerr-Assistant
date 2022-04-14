@@ -9,6 +9,9 @@ function pullStoredData(callback) {
         serverProtocol = data.serverProtocol || 'http';
         serverPath = data.serverPath || '/'
         origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
+        if (origin.endsWith('/')) {
+            origin = origin.slice(0, origin.length - 1);
+        }
         userId = data.userId || undefined;
         if (callback) callback(data);
     });
@@ -31,6 +34,9 @@ function setOrigin(apiKey, ip, port, protocol, path, callback) {
     serverProtocol = protocol;
     serverPath = path;
     origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
+    if (origin.endsWith('/')) {
+        origin = origin.slice(0, origin.length - 1);
+    }
     chrome.storage.sync.set({
         serverAPIKey: serverAPIKey,
         serverIp: serverIp,
