@@ -1,12 +1,12 @@
-let usernameInput = document.getElementById('username');
-let passwordInput = document.getElementById('password');
 let serverAPIKeyInput = document.getElementById('serverAPIKey');
 let serverIpInput = document.getElementById('serverIp');
+let serverPathInput = document.getElementById('serverPath');
 let serverPortInput = document.getElementById('serverPort');
 let useHTTPSInput = document.getElementById('useHTTPS');
 let spinnerDiv = document.getElementById('spinnerDiv');
 let loginStatusOKDiv = document.getElementById('loginStatusOK');
 let loginStatusKODiv = document.getElementById('loginStatusKO');
+let currentURL = document.getElementById('currentURL');
 
 let saveButton = document.getElementById('saveButton');
 let alertDanger = document.getElementById('alertDanger');
@@ -78,12 +78,8 @@ function requestPermission(callback) {
 }
 
 function validHost(str) {
-    let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    let pattern = new RegExp('^((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))$'); // OR ip (v4) address
     return !!pattern.test(str);
 }
 
@@ -98,8 +94,16 @@ function validateForm() {
         serverIpInput.classList.add('is-invalid');
         saveButton.disabled = true;
     }
+    // Path
+    const isValidPath = /^((\/[.\w-]+)*\/{0,1}|\/)$/.test(serverPathInput.value);
+    if (isValidPath) {
+        serverPathInput.classList.remove('is-invalid');
+    } else {
+        serverPathInput.classList.add('is-invalid');
+        saveButton.disabled = true;
+    }
     // API key
-    const isValidAPIKey = /\w{60,70}/.test(serverAPIKeyInput.value);
+    const isValidAPIKey = /^[\w=]{60,70}$/.test(serverAPIKeyInput.value);
     if (isValidAPIKey) {
         serverAPIKeyInput.classList.remove('is-invalid');
     } else {
@@ -109,13 +113,15 @@ function validateForm() {
 }
 
 function requireSaving() {
+    updateCurrentURL();
     if (xhr !== null) {
         xhr.abort();
     }
     if (serverIpInput.value === serverIp &&
         parseInt(serverPortInput.value) === parseInt(serverPort) &&
         useHTTPSInput.checked === (serverProtocol === 'https') &&
-        serverAPIKeyInput.value === serverAPIKey) {
+        serverAPIKeyInput.value === serverAPIKey &&
+        serverPathInput.value === serverPath) {
         updateLoggedInStatus();
     } else {
         saveButton.disabled = false;
@@ -125,8 +131,16 @@ function requireSaving() {
     validateForm();
 }
 
+function updateCurrentURL() {
+    portString = `:${serverPortInput.value}`;
+    if ((useHTTPSInput.checked && serverPortInput.value === '443') || (!useHTTPSInput.checked && serverPortInput.value === '80')) {
+        portString = '';
+    }
+    currentURL.innerHTML = `${useHTTPSInput.checked ? 'https' : 'http'}://${serverIpInput.value}${portString}${serverPathInput.value}`;
+}
+
 saveButton.onclick = function(ev) {
-    setOrigin(serverAPIKeyInput.value, serverIpInput.value, serverPortInput.value, getProtocol(), function() {
+    setOrigin(serverAPIKeyInput.value, serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, function() {
         requestPermission(function(granted) {
             updateLoggedInStatus();
         });
@@ -141,11 +155,15 @@ pullStoredData(function() {
     serverAPIKeyInput.value = serverAPIKey;
     serverIpInput.value = serverIp;
     serverPortInput.value = serverPort;
+    serverPathInput.value = serverPath;
     useHTTPSInput.checked = serverProtocol === 'https';
+
+    updateCurrentURL();
 
     serverAPIKeyInput.oninput = requireSaving;
     serverIpInput.oninput = requireSaving;
     serverPortInput.oninput = requireSaving;
+    serverPathInput.oninput = requireSaving;
     useHTTPSInput.oninput = requireSaving;
 
     updateLoggedInStatus();

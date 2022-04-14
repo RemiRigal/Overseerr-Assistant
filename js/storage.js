@@ -1,13 +1,14 @@
-let serverAPIKey, serverPort, serverIp, serverProtocol, origin, userId;
+let serverAPIKey, serverPort, serverIp, serverProtocol, serverPath, origin, userId;
 
 
 function pullStoredData(callback) {
-    chrome.storage.sync.get(['serverAPIKey', 'serverIp', 'serverPort', 'serverProtocol', 'userId'], function(data) {
+    chrome.storage.sync.get(['serverAPIKey', 'serverIp', 'serverPort', 'serverProtocol', 'serverPath', 'userId'], function(data) {
         serverAPIKey = data.serverAPIKey || '';
         serverIp = data.serverIp || '172.0.0.1';
         serverPort = data.serverPort || 8001;
         serverProtocol = data.serverProtocol || 'http';
-        origin = `${serverProtocol}://${serverIp}:${serverPort}`;
+        serverPath = data.serverPath || '/'
+        origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
         userId = data.userId || undefined;
         if (callback) callback(data);
     });
@@ -23,17 +24,19 @@ function isLoggedIn(callback) {
     });
 }
 
-function setOrigin(apiKey, ip, port, protocol, callback) {
+function setOrigin(apiKey, ip, port, protocol, path, callback) {
     serverAPIKey = apiKey;
     serverIp = ip;
     serverPort = port;
     serverProtocol = protocol;
-    origin = `${serverProtocol}://${serverIp}:${serverPort}`;
+    serverPath = path;
+    origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
     chrome.storage.sync.set({
         serverAPIKey: serverAPIKey,
         serverIp: serverIp,
         serverPort: serverPort,
-        serverProtocol: serverProtocol
+        serverProtocol: serverProtocol,
+        serverPath: serverPath
     }, function () {
         if (callback) callback();
     });

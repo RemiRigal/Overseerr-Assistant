@@ -39,21 +39,35 @@
         <label for="serverPort">Overseerr server's port</label>
         <input type="number" class="form-control" id="serverPort">
       </div>
+      <div class="form-group">
+        <div class="flex m-0 row">
+          <label for="serverPath">Overseerr server's path</label>
+          <i class="fa text-primary fa-info-circle ml-2" data-toggle="tooltip" data-placement="right" data-original-title="The path of the Overseerr server"></i>
+        </div>
+        <input type="text" class="form-control" id="serverPath">
+        <div id="serverPathFeedback" class="invalid-feedback">
+          Please provide a valid path
+        </div>
+      </div>
       <div class="form-check flex items-center">
         <input type="checkbox" class="form-check-input" id="useHTTPS">
         <label class="form-check-label ml-3 mt-1" for="useHTTPS">Use HTTPS</label>
       </div>
+      <div class="form-group text-white justify-content-center">
+        <label class="h4">Your Overseer URL:</label>
+        <label class="h6 text-center" id="currentURL"></label>
+      </div>
       <div class="d-flex justify-content-center">
-        <div id="loginStatusOK" class="alert alert-success mt-4" hidden>
+        <div id="loginStatusOK" class="alert alert-success mt-2" hidden>
           <i class="fa fa-check small mr-3"></i>You are logged in
         </div>
-        <div id="loginStatusKO" class="alert alert-danger mt-4" hidden>
+        <div id="loginStatusKO" class="alert alert-danger mt-2" hidden>
           <i class="fa fa-times small mr-3"></i>Unable to connect to Overseerr
         </div>
       </div>
     </form>
   </div>
-  <div class="text-center pt-3 pb-1" id="spinnerDiv">
+  <div class="text-center pt-2 pb-1" id="spinnerDiv">
   </div>
   <div class="flex row justify-center">
     <div class="m-2">
