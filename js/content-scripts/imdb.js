@@ -1,6 +1,6 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = "div[class*='sc-ddcc29cf-5']";
+containerOptions.anchorElement = `div.sc-ddcc29cf-5`;
 containerOptions.textClass = 'text-sm';
 containerOptions.containerClass = 'mt-2 py-2';
 containerOptions.badgeBackground = '#313131';
@@ -11,7 +11,11 @@ if (matches !== null && matches.length > 1) {
     imdbId = matches[1];
     console.log(`IMDb id: ${imdbId}`);
 
-    let title = ($("a[data-testid='hero-title-block__series-link']").text() || $("div[data-testid='hero-title-block__original-title']").text() || $("h1").text()).replace('Original title: ', '');
+    let title = $("h1[data-testid='hero-title-block__series-link']").text() || $('h1:first').text();
+    if (!title) {
+        title = $("div[data-testid='hero-title-block__original-title']").text();
+        title = title ? title.slice(title.indexOf(':') + 2, title.length) : title;
+    }
     let releaseYear = parseInt($("ul[data-testid='hero-title-block__metadata'] li a[href*='/releaseinfo']").text().split("-")[0]) || null;
     console.log(title, releaseYear)
 
