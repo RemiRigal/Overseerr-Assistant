@@ -63,6 +63,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         return true;
     }
 
+    else if (request.contentScriptQuery === 'getOverseerrVersion') {
+        console.log(`Getting Overseerr version`);
+        pullStoredData(function() {
+            const options = {headers: {'X-Api-Key': serverAPIKey}};
+            fetch(`${origin}/api/v1/status`, options)
+                .then(response => response.json())
+                .then(json => sendResponse(json))
+                .catch(error => console.error(error));
+        });
+        return true;
+    }
+
     else if (request.contentScriptQuery === 'openOptionsPage') {
         chrome.runtime.openOptionsPage();
         return true;

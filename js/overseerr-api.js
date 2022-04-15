@@ -1,4 +1,4 @@
-let xhr = null;
+let xhr, xhrVersion = null;
 
 function getLoggedUser(callback) {
     xhr = new XMLHttpRequest();
@@ -25,4 +25,31 @@ function getLoggedUser(callback) {
         if (callback) callback(false, 'Server unreachable');
     }
     xhr.send();
+}
+
+function getOverseerrVersion(callback) {
+    xhrVersion = new XMLHttpRequest();
+    xhrVersion.open('GET', `${origin}/api/v1/status`, true);
+    xhrVersion.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhrVersion.setRequestHeader('X-Api-Key', serverAPIKey);
+    xhrVersion.onreadystatechange = function() {
+        if (xhrVersion.readyState === 4) {
+            try {
+                const response = JSON.parse(xhrVersion.responseText);
+                if (response.hasOwnProperty('error')) {
+                    if (callback) callback(false, response.error);
+                } else {
+                    if (callback) callback(true, null, response);
+                }
+            } catch {
+                if (callback) callback(false, 'Server unreachable');
+            }
+            xhrVersion = null;
+        }
+    }
+    xhrVersion.timeout = 5000;
+    xhrVersion.ontimeout = function() {
+        if (callback) callback(false, 'Server unreachable');
+    }
+    xhrVersion.send();
 }

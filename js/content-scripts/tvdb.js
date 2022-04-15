@@ -12,7 +12,7 @@ if(tmdbMatch.length > 0 || imdbMatch.length > 1) {
     initializeContainer();
     insertSpinner();
 
-    pullStoredData(function () {
+    pullStoredData(function() {
         if (!userId) {
             removeSpinner();
             insertNotLoggedInButton();
@@ -36,34 +36,28 @@ if(tmdbMatch.length > 0 || imdbMatch.length > 1) {
             imdbId = imdbMatch[1];
             console.log(`IMDb id: ${imdbId}`);
 
-            let title = $('#series_title').text();
-            let yearText = $('#series_basic_info ul li:eq(2) span').text().replace(/\s/g, '').split(",")[1];
-            let releaseYear = parseInt(yearText);
-
-            chrome.runtime.sendMessage({contentScriptQuery: 'search', title: title}, json => {
-                json.results = json.results
-                    .filter((result) => result.mediaType === mediaType)
-                    .filter((result) => {
-                        let date = result.releaseDate || result.firstAirDate || null;
-                        return date && parseInt(date.slice(0, 4)) === releaseYear;
-                    });
-                if (json.results.length === 0) {
+            
+            chrome.runtime.sendMessage({contentScriptQuery: 'getOverseerrVersion'}, json => {
+                if (!json.version || overseerrVersion.localeCompare("1.29.0", undefined, { numeric: true, sensitivity: 'base' }) < 0) {
                     removeSpinner();
-                    insertStatusButton('Media not found', 0);
+                    insertStatusButton('Please update to Overseerr 1.29.0+', 0);
                     return;
                 }
-                const firstResult = json.results[0];
-                chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
-                    if (imdbId === json.externalIds.imdbId) {
+
+                chrome.runtime.sendMessage({contentScriptQuery: 'search', title: `imdb:${imdbId}`}, json => {
+                    if (json.results.length === 0) {
+                        removeSpinner();
+                        insertStatusButton('Media not found', 0);
+                        return;
+                    }
+                    const firstResult = json.results[0];
+                    chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
                         mediaInfo = json;
                         tmdbId = json.id;
                         console.log(`TMDB id: ${tmdbId}`);
                         removeSpinner();
                         fillContainer(json.mediaInfo);
-                    } else {
-                        removeSpinner();
-                        insertStatusButton('Media not found', 0);
-                    }
+                    });
                 });
             });
         }
