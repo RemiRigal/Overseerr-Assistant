@@ -4,9 +4,6 @@ containerOptions.anchorElement = 'div.PrePlayActionBar-container-US01pp';
 containerOptions.containerClass = 'mb-3 py-2';
 containerOptions.badgeBackground = '#00000099';
 
-const titleElementSelector = 'div.PrePlayLeftTitle-leftTitle-ewTpwH';
-const dateElementSelector = 'div.PrePlaySecondaryTitle-secondaryTitle-BA3QVn';
-
 
 function isHashValid(hash) {
     return hash.startsWith('#!/provider/');
@@ -41,48 +38,67 @@ function arrangeMargins() {
     });
 }
 
+function getPlexToken() {
+    let imageElements = $('img').filter(function() {
+        return $(this).attr('src').includes('X-Plex-Token');
+    });
+    if (imageElements.length > 0) {
+        let pattern = /.X-Plex-Token=(\w+)/;
+        let matches = imageElements.attr('src').match(pattern);
+        if (matches !== null && matches.length > 1) {
+            return matches[1];
+        }
+    }
+    return null;
+}
+
+function getMediaKey() {
+    let pattern = /key=%2Flibrary%2Fmetadata%2F(\w+)/;
+    let matches = document.location.hash.match(pattern);
+    if (matches !== null && matches.length > 1) {
+        return matches[1];
+    }
+    return null;
+}
+
 function processPage() {
     if (overseerrContainer) overseerrContainer.remove();
 
-    waitForElm(titleElementSelector).then((titleElement) => {
-        let title = titleElement.textContent;
-        let releaseYear = parseInt($(dateElementSelector).text()) || null;
-        console.log(title, releaseYear);
+    waitForElm('div.PrePlayLeftTitle-leftTitle-ewTpwH').then(() => {
+        waitForElm('div.ImagePoster-flex-Ry0HC5 > img').then(() => {
+            initializeContainer();
+            insertSpinner();
+            arrangeMargins();
 
-        initializeContainer();
-        insertSpinner();
-        arrangeMargins();
+            pullStoredData(function () {
+                if (!userId) {
+                    removeSpinner();
+                    insertNotLoggedInButton();
+                    return;
+                }
 
-        pullStoredData(function () {
-            if (!userId) {
-                removeSpinner();
-                insertNotLoggedInButton();
-                return;
-            }
-    
-            chrome.runtime.sendMessage({contentScriptQuery: 'search', title: title}, json => {
-                json.results = json.results
-                    .filter((result) => result.mediaType === 'movie' || result.mediaType === 'tv')
-                    .filter((result) => {
-                        if(!releaseYear) {
-                            return true;
-                        }
-                        let date = result.releaseDate || result.firstAirDate || null;
-                        return date && parseInt(date.slice(0, 4)) === releaseYear;
-                    });
-                if (json.results.length === 0) {
+                let plexToken = getPlexToken();
+                let mediaKey = getMediaKey();
+
+                if (plexToken === null || mediaKey === null) {
                     removeSpinner();
                     insertStatusButton('Media not found', 0);
                     return;
                 }
-                const firstResult = json.results[0];
-                mediaType = firstResult.mediaType;
-                chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
-                    mediaInfo = json;
-                    tmdbId = json.id;
-                    console.log(`TMDB id: ${tmdbId}`);
-                    removeSpinner();
-                    fillContainer(json.mediaInfo);
+
+                chrome.runtime.sendMessage({contentScriptQuery: 'plexQueryMedia', plexToken: plexToken, mediaKey: mediaKey}, json => {
+                    let guids = json.MediaContainer.Metadata[0].Guid.filter(guid => guid.id.startsWith('tmdb'));
+                    if (guids.length > 0) {
+                        tmdbId = parseInt(guids[0].id.replace('tmdb://', ''));
+                        mediaType = json.MediaContainer.Metadata[0].type === 'movie' ? 'movie' : 'tv';
+                        console.log(`TMDB id: ${tmdbId}`);
+                        chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: tmdbId, mediaType: mediaType}, json => {
+                            mediaInfo = json;
+                            console.log(json.name);
+                            removeSpinner();
+                            fillContainer(json.mediaInfo);
+                        });
+                    }
                 });
             });
         });

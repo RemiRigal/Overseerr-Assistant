@@ -4,13 +4,21 @@
 [![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 
-Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr). It provides an integration for TMDB and IMDb websites.
+Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr). It provides an integration for most popular media websites.
 
 Features:
-- One-click Overseerr requests directly from TMDB and IMDb websites
+- One-click Overseerr requests directly from media websites
 - One-click access to available media on Plex
 - Monitor requests status
 - Support for both movies and TV shows
+
+Supported media websites:
+- [TMDB](https://www.themoviedb.org/)
+- [IMDb](https://www.imdb.com/)
+- [TVDB](https://thetvdb.com/)
+- [Plex Discover](https://app.plex.tv/desktop/#!/media/tv.plex.provider.discover?source=home)
+- [Letterboxd](https://letterboxd.com/)
+- [Allociné](https://www.allocine.fr/)
 
 ## Install
 

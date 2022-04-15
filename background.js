@@ -51,8 +51,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         return true;
     }
 
+    else if (request.contentScriptQuery === 'plexQueryMedia') {
+        let mediaKey = encodeURIComponentSafe(request.mediaKey);
+        let plexToken = encodeURIComponentSafe(request.plexToken);
+        console.log(`Requesting Plex media '${mediaKey}'`);
+        const options = {headers: {'Accept': 'application/json'}};
+        fetch(`https://metadata.provider.plex.tv/library/metadata/${mediaKey}?X-Plex-Token=${plexToken}`, options)
+            .then(response => response.json())
+            .then(json => sendResponse(json))
+            .catch(error => console.error(error));
+        return true;
+    }
+
     else if (request.contentScriptQuery === 'openOptionsPage') {
         chrome.runtime.openOptionsPage();
         return true;
     }
+    return false;
 });
