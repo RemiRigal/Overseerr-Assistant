@@ -1,5 +1,15 @@
 importScripts('js/storage.js');
 
+
+function encodeURIComponentSafe(value) {
+    return encodeURIComponent(value)
+        .replace(/!/g, '%21')
+        .replace(/\~/g, '%7E')
+        .replace(/\*/g, '%2A')
+        .replace(/\(/g, '%28')
+        .replace(/\)/g, '%29');
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.contentScriptQuery === 'queryMedia') {
         console.log(`Querying ${request.mediaType} '${request.tmdbId}'`);
@@ -33,7 +43,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log(`Searching movie '${request.title}'`);
         pullStoredData(function() {
             const options = {headers: {'X-Api-Key': serverAPIKey}};
-            fetch(`${origin}/api/v1/search?query=${encodeURIComponent(request.title)}`, options)
+            fetch(`${origin}/api/v1/search?query=${encodeURIComponentSafe(request.title)}`, options)
                 .then(response => response.json())
                 .then(json => sendResponse(json))
                 .catch(error => console.error(error));
