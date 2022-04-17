@@ -38,7 +38,7 @@ if(tmdbMatch.length > 0 || imdbMatch.length > 1) {
 
             
             chrome.runtime.sendMessage({contentScriptQuery: 'getOverseerrVersion'}, json => {
-                if (!json.version || overseerrVersion.localeCompare("1.29.0", undefined, { numeric: true, sensitivity: 'base' }) < 0) {
+                if (!json.version || json.version.localeCompare("1.29.0", undefined, { numeric: true, sensitivity: 'base' }) < 0) {
                     removeSpinner();
                     insertStatusButton('Please update to Overseerr 1.29.0+', 0);
                     return;
