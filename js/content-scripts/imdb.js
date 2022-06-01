@@ -1,6 +1,6 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = `div.sc-ddcc29cf-5`;
+containerOptions.anchorElement = `.sc-80e96dbe-5`;
 containerOptions.textClass = 'text-sm';
 containerOptions.containerClass = 'mt-2 py-2';
 containerOptions.badgeBackground = '#313131';
@@ -26,7 +26,7 @@ if (matches !== null && matches.length > 1) {
                 insertStatusButton('Please update to Overseerr 1.29.0+', 0);
                 return;
             }
-            
+
             chrome.runtime.sendMessage({contentScriptQuery: 'search', title: `imdb:${imdbId}`}, json => {
                 if (json.results.length === 0) {
                     removeSpinner();
@@ -51,6 +51,3 @@ if (matches !== null && matches.length > 1) {
         });
     });
 }
-
-
-
