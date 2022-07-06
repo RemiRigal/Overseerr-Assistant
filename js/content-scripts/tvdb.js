@@ -1,7 +1,8 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = '#translations';
-containerOptions.containerClass = 'mb-2 py-3';
+containerOptions.textClass = 'text-sm';
+containerOptions.containerClass = 'oa-mb-2 oa-py-3';
 containerOptions.badgeBackground = '#313131';
 
 mediaType = document.location.pathname.startsWith('/movies') ? 'movie' : 'tv';

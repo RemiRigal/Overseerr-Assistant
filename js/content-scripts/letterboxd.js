@@ -1,16 +1,20 @@
 let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = `div.review.body-text`;
-containerOptions.containerClass = 'py-2';
-containerOptions.plexButtonClass = 'bg-gray-800';
+containerOptions.containerClass = 'oa-py-5';
+containerOptions.plexButtonClass = '';
 containerOptions.badgeBackground = '#283038';
-
-mediaType = 'movie';
 
 tmdbButton = $('a[data-track-action=TMDb]:first');
 tmdbURL = tmdbButton.attr('href');
 
-const tmdbRegex = /.*\/movie\/(\d+)(?:\w|-)*/;
+if (tmdbURL.includes('/movie/')) {
+    mediaType = 'movie';
+} else {
+    mediaType = 'tv';
+}
+
+const tmdbRegex = new RegExp(`.*\/${mediaType}\/(\\d+)(?:\\w|-)*`);
 let matches = tmdbURL.match(tmdbRegex);
 if (matches !== null && matches.length > 1) {
     tmdbId = parseInt(matches[1]);

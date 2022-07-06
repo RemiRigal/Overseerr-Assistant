@@ -1,7 +1,7 @@
 let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = 'div.PrePlayActionBar-container-US01pp';
-containerOptions.containerClass = 'mb-3 py-2';
+containerOptions.anchorElement = 'div.PrePlayActionBar-prePlayContainer-od_bro';
+containerOptions.containerClass = 'oa-mb-3 oa-py-2';
 containerOptions.badgeBackground = '#00000099';
 
 
@@ -30,7 +30,7 @@ function waitForElm(selector) {
 }
 
 function arrangeMargins() {
-    waitForElm('div.PrePlayActionBar-container-US01pp').then((elm) => {
+    waitForElm('div.PrePlayActionBar-prePlayContainer-od_bro').then((elm) => {
         $(elm).css({'margin-bottom': '10px'});
     });
     waitForElm('div.PrePlayAvailabilityList-hub-lEPTuG').then((elm) => {

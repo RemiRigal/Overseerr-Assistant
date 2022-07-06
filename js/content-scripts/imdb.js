@@ -1,8 +1,8 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = `div.sc-ddcc29cf-5`;
-containerOptions.textClass = 'text-sm';
-containerOptions.containerClass = 'mt-2 py-2';
+containerOptions.textClass = 'oa-text-sm';
+containerOptions.containerClass = 'oa-mt-2 oa-py-2';
 containerOptions.badgeBackground = '#313131';
 
 const imdbRegex = /\/title\/(tt\d+)(?:\/|$).*/;

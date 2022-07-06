@@ -1,7 +1,7 @@
 let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = 'ul.auto.actions';
-containerOptions.containerClass = 'py-2';
+containerOptions.containerClass = 'oa-py-2';
 containerOptions.badgeBackground = '#032541';
 
 mediaType = document.location.pathname.startsWith('/movie') ? 'movie' : 'tv';

@@ -2,8 +2,8 @@ let overseerrContainer, allocineId, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = 'div.bam-container';
 containerOptions.textClass = 'text-sm';
-containerOptions.containerClass = 'mt-2 py-2';
-containerOptions.plexButtonClass = 'bg-gray-800';
+containerOptions.containerClass = 'oa-mt-2 oa-py-2';
+containerOptions.plexButtonClass = 'oa-bg-gray-800';
 containerOptions.badgeBackground = '#032541';
 
 mediaType = document.location.pathname.startsWith('/film') ? 'movie' : 'tv';
