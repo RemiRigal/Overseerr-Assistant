@@ -16,6 +16,7 @@
     height: 32px;
     width: 32px;
     margin-right: 10px;
+    border: 0;
 }
 
 .overseerr-spin {
@@ -416,34 +417,34 @@ button.input-action svg:last-child {
 }
 
 .oa-rounded-xl {
-    border-radius: 0.75rem;
+    border-radius: 0.75em;
 }
 .oa-rounded-full {
     border-radius: 9999px;
 }
 .oa-rounded-md {
-    border-radius: 0.375rem;
+    border-radius: 0.375em;
 }
 .oa-rounded-lg {
-    border-radius: 0.5rem;
+    border-radius: 0.5em;
 }
 .oa-rounded-b-xl {
-    border-bottom-right-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75em;
+    border-bottom-left-radius: 0.75em;
 }
 .oa-rounded-l-md {
-    border-top-left-radius: 0.375rem;
-    border-bottom-left-radius: 0.375rem;
+    border-top-left-radius: 0.375em;
+    border-bottom-left-radius: 0.375em;
 }
 .oa-rounded-r-md {
-    border-top-right-radius: 0.375rem;
-    border-bottom-right-radius: 0.375rem;
+    border-top-right-radius: 0.375em;
+    border-bottom-right-radius: 0.375em;
 }
 .oa-rounded-bl-lg {
-    border-bottom-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5em;
 }
 .oa-rounded-br-lg {
-    border-bottom-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5em;
 }
 
 .oa-m-1 {

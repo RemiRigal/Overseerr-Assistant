@@ -14,6 +14,26 @@ const mediaStatus = {
     5: 'Available'
 }
 
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
 function initializeContainer() {
     if (overseerrContainer) overseerrContainer.remove();
     overseerrContainer = $(`<div id="overseerr-assistant-container" class="overseerr-container oa-flex oa-flex-row ${containerOptions.containerClass} oa-items-center">

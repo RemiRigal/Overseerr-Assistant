@@ -18,6 +18,7 @@ Supported media websites:
 - [TVDB](https://thetvdb.com/)
 - [Plex Discover](https://app.plex.tv/desktop/#!/media/tv.plex.provider.discover?source=home)
 - [Letterboxd](https://letterboxd.com/)
+- [JustWatch](https://www.justwatch.com/)
 - [Allociné](https://www.allocine.fr/)
 
 ## Install
