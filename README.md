@@ -4,7 +4,7 @@
 [![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 
-Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr). It provides an integration for most popular media websites.
+Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr) and [Jellyseerr](https://github.com/Fallenbagel/jellyseerr). It provides an integration for most popular media websites.
 
 Features:
 - One-click Overseerr requests directly from media websites

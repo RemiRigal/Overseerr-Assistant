@@ -75,6 +75,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         return true;
     }
 
+    else if (request.contentScriptQuery === 'checkJellyseerr') {
+        console.log(`Checking if instance is Jellyseerr`);
+        pullStoredData(function() {
+            const options = {headers: {'X-Api-Key': serverAPIKey, 'Accept': 'application/json'}};
+            fetch(`${origin}/api/v1/auth/me`, options)
+                .then(response => response.json())
+                .then(json => sendResponse(Object.keys(json).filter((key) => /jellyfin/.test(key)).length > 0))
+                .catch(error => console.error(error));
+        });
+        return true;
+    }
+
     else if (request.contentScriptQuery === 'openOptionsPage') {
         chrome.runtime.openOptionsPage();
         return true;

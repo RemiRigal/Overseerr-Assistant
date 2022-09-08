@@ -49,7 +49,13 @@ function initializeContainer() {
 
 function fillContainer(mediaInfo) {
     const status = mediaInfo ? mediaInfo.status : 0;
-    const plexUrl = mediaInfo ? mediaInfo.plexUrl : origin;
+    const isPlex = mediaInfo && mediaInfo.hasOwnProperty('plexUrl');
+    let mediaUrl;
+    if (isPlex) {
+        mediaUrl = mediaInfo ? mediaInfo.plexUrl : origin;
+    } else {
+        mediaUrl = mediaInfo ? mediaInfo.mediaUrl : origin;
+    }
     const requestCount = status > 0 ? mediaInfo.requests.length : 0;
     let requestedByCurrentUser = false;
     if (requestCount > 0) {
@@ -76,11 +82,11 @@ function fillContainer(mediaInfo) {
                     .map((season) => season.seasonNumber);
             }
             insertStatusButton(mediaStatus[status], null, availableSeasons)
-            insertPlexButton(plexUrl);
+            insertMediaButton(mediaUrl, isPlex);
             break;
         case 5: // Available
             insertStatusButton(mediaStatus[status]);
-            insertPlexButton(plexUrl);
+            insertMediaButton(mediaUrl, isPlex);
             break;
     }
 }
@@ -141,13 +147,13 @@ function removeRequestButton() {
 
 function insertRequestedButton() {
     overseerrContainer.append(`
-        <div id="overseerrRequest" class="relative inline-flex h-full ${containerOptions.textClass} oa-items-center oa-px-4 oa-py-2 oa-leading-5 oa-font-medium oa-z-10 hover:oa-z-20 focus:oa-z-20 focus:oa-outline-none
+        <a id="overseerrRequest" class="oa-relative oa-inline-flex oa-h-full ${containerOptions.textClass} oa-items-center oa-px-4 oa-py-2 oa-leading-5 oa-font-medium oa-z-10 hover:oa-z-20 focus:oa-z-20 focus:oa-outline-none
             oa-transition oa-ease-in-out oa-duration-150 oa-button-md overseerr-text-white oa-border oa-bg-indigo-600 oa-border-indigo-600 oa-rounded-md oa-ml-2" href="${origin}/${mediaType}/${tmdbId}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 sm:w-4 sm:h-4">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
           </svg>
           <span>Requested</span>
-        </div>
+        </a>
     `);
 }
 
@@ -168,7 +174,7 @@ function insertStatusButton(statusText, requestCount, availableSeasons) {
             text = `Season${availableSeasons.length > 1 ? 's' : ''} ${availableSeasons.join('-')}`;
         }
         overseerrContainer.append(`
-            <a class="oa-flex group h-full oa-items-center oa-px-4 oa-py-2 ${containerOptions.textClass} oa-leading-6 oa-font-medium oa-rounded-r-md overseerr-text-white focus:oa-outline-none oa-transition oa-ease-in-out oa-duration-150
+            <a class="oa-flex group oa-h-full oa-items-center oa-px-4 oa-py-2 ${containerOptions.textClass} oa-leading-6 oa-font-medium oa-rounded-r-md overseerr-text-white focus:oa-outline-none oa-transition oa-ease-in-out oa-duration-150
                 oa-bg-gradient-to-br oa-from-gray-800 oa-to-gray-900 hover:oa-from-indigo-500 hover:oa-to-purple-500" style="background: ${containerOptions.badgeBackground}" href="${origin}/${mediaType}/${tmdbId}" target="_blank">
               ${text}
             </a>
@@ -176,16 +182,16 @@ function insertStatusButton(statusText, requestCount, availableSeasons) {
     }
 }
 
-function insertPlexButton(plexUrl) {
+function insertMediaButton(mediaUrl, isPlex) {
     overseerrContainer.append(`
         <a class="oa-relative oa-inline-flex oa-h-full ${containerOptions.textClass} ${containerOptions.plexButtonClass} oa-items-center oa-ml-4 oa-px-4 oa-py-2 oa-leading-6 oa-font-medium oa-z-10 hover:oa-z-20 focus:oa-z-20
             focus:oa-outline-none oa-transition oa-ease-in-out duration-150 oa-button-md overseerr-text-white oa-border oa-border-gray-400 hover:oa-border-gray-200 focus:oa-border-gray-100 active:oa-border-gray-100
-            oa-rounded-md undefined" href="${plexUrl}" target="_blank">
+            oa-rounded-md undefined" href="${mediaUrl}" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <span>Play on Plex</span>
+          <span>Play${isPlex ? ' on Plex' : ''}</span>
         </a>
     `);
 }
