@@ -19,6 +19,7 @@ Supported media websites:
 - [Plex Discover](https://app.plex.tv/desktop/#!/media/tv.plex.provider.discover?source=home)
 - [Letterboxd](https://letterboxd.com/)
 - [JustWatch](https://www.justwatch.com/)
+- [Trakt.tv](https://trakt.tv/)
 - [Taste.io](https://www.taste.io/)
 - [Allociné](https://www.allocine.fr/)
 
