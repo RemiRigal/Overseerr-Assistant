@@ -44,7 +44,7 @@ function getMediaKey() {
 function processPage() {
     if (overseerrContainer) overseerrContainer.remove();
 
-    waitForElm('div.PrePlayLeftTitle-leftTitle-ewTpwH').then(() => {
+    waitForElm('div.PrePlayDetailsContainer-container-jKUfR_').then(() => {
         waitForElm('div.ImagePoster-flex-Ry0HC5 > img').then(() => {
             initializeContainer();
             insertSpinner();
@@ -74,7 +74,6 @@ function processPage() {
                         console.log(`TMDB id: ${tmdbId}`);
                         chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: tmdbId, mediaType: mediaType}, json => {
                             mediaInfo = json;
-                            console.log(json.name);
                             removeSpinner();
                             fillContainer(json.mediaInfo);
                         });
