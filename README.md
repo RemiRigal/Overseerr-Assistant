@@ -16,6 +16,7 @@ Supported media websites:
 - [TMDB](https://www.themoviedb.org/)
 - [IMDb](https://www.imdb.com/)
 - [TVDB](https://thetvdb.com/)
+- [Rotten Tomatoes](https://www.rottentomatoes.com/)
 - [Plex Discover](https://app.plex.tv/desktop/#!/media/tv.plex.provider.discover?source=home)
 - [Letterboxd](https://letterboxd.com/)
 - [JustWatch](https://www.justwatch.com/)
