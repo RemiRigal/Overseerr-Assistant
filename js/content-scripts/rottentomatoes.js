@@ -1,14 +1,21 @@
 let overseerrContainer, allocineId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = 'div.styles_container__2u8xM';
+containerOptions.anchorElement = 'div.thumbnail-scoreboard-wrap';
 containerOptions.textClass = 'text-sm';
 containerOptions.containerClass = 'oa-mt-0 oa-mb-6 oa-py-2';
 containerOptions.plexButtonClass = 'oa-bg-gray-800';
 containerOptions.badgeBackground = '#032541';
 
-mediaType = document.location.pathname.startsWith('/movies') ? 'movie' : 'tv';
+mediaType = document.location.pathname.startsWith('/m') ? 'movie' : 'tv';
 
-let title = $('h1:first').text();
+let title = '';
+if (mediaType === 'tv') {
+    containerOptions.anchorElement = 'div.tv-series__top-section';
+    title = $('h1.mop-ratings-wrap__title').text();
+} else {
+    title = $('h1.scoreboard__title').text();
+}
+
 if (title) {
     initializeContainer();
     insertSpinner();
@@ -38,4 +45,3 @@ if (title) {
         });
     });
 }
-
