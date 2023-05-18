@@ -46,6 +46,10 @@
     text-decoration: none;
 }
 
+.oa-plex-left-margin{
+    margin-left: 40px;
+}
+
 .oa-text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
