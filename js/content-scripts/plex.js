@@ -4,8 +4,6 @@ containerOptions.anchorElement = 'div.PrePlayMetadata-container-ud0cxN';
 containerOptions.containerClass = 'oa-mb-3 oa-py-2 oa-plex-left-margin';
 containerOptions.badgeBackground = '#00000099';
 
-console.log("Plex js fired");
-
 
 function isHashValid(hash) {
     return hash.startsWith('#!/provider/');
