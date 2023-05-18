@@ -1,7 +1,7 @@
 let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = 'div.PrePlayActionBar-prePlayContainer-od_bro';
-containerOptions.containerClass = 'oa-mb-3 oa-py-2';
+containerOptions.anchorElement = 'div.PrePlayMetadata-container-ud0cxN';
+containerOptions.containerClass = 'oa-mb-3 oa-py-2 oa-plex-left-margin';
 containerOptions.badgeBackground = '#00000099';
 
 
@@ -10,10 +10,10 @@ function isHashValid(hash) {
 }
 
 function arrangeMargins() {
-    waitForElm('div.PrePlayActionBar-prePlayContainer-od_bro').then((elm) => {
+    waitForElm('div.PrePlayMetadata-container-ud0cxN').then((elm) => {
         $(elm).css({'margin-bottom': '10px'});
     });
-    waitForElm('div.PrePlayAvailabilityList-hub-lEPTuG').then((elm) => {
+    waitForElm('div.PrePlayMetadata-container-ud0cxN').then((elm) => {
         $(elm).css({'margin-top': '20px'});
     });
 }
@@ -44,8 +44,8 @@ function getMediaKey() {
 function processPage() {
     if (overseerrContainer) overseerrContainer.remove();
 
-    waitForElm('div.PrePlayDetailsContainer-container-jKUfR_').then(() => {
-        waitForElm('div.ImagePoster-flex-Ry0HC5 > img').then(() => {
+    waitForElm('div.PrePlayMetadata-container-ud0cxN').then(() => {
+        waitForElm('div.PrePlayMetadata-container-ud0cxN img').then(() => {
             initializeContainer();
             insertSpinner();
             arrangeMargins();

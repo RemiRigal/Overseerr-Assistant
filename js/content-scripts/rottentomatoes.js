@@ -10,10 +10,10 @@ mediaType = document.location.pathname.startsWith('/m') ? 'movie' : 'tv';
 
 let title = '';
 if (mediaType === 'tv') {
-    containerOptions.anchorElement = 'div.tv-series__top-section';
-    title = $('h1.mop-ratings-wrap__title').text();
+    containerOptions.anchorElement = 'section#topSection';
+    title = $('#scoreboard h1.title').text();
 } else {
-    title = $('h1.scoreboard__title').text();
+    title = $('#scoreboard h1.title').text();
 }
 
 if (title) {
