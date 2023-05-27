@@ -1,6 +1,6 @@
 {
   "name": "Overseerr Assistant",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Browser extension for Overseerr that embeds buttons into IMDb and TMDB web pages to easily request movies and tv shows.",
   "permissions": ["storage"],
   "host_permissions": ["http://*/", "https://*/"],
