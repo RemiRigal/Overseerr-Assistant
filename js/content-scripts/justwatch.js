@@ -51,14 +51,14 @@ function processPage() {
   waiting = true;
   waitForElm("div[v-uib-tooltip=IMDB]").then(() => {
     waiting = false;
-    imdbButton = $("div[v-uib-tooltip=IMDB]:first > a");
+    imdbButton = $('a[href*="https://www.imdb.com/"]');
 
     if (imdbButton === null && imdbButton.attr("href") === undefined) {
       return;
     }
     imdbURL = imdbButton.attr("href");
 
-    const imdbRegex = /\/title\/(tt\d+)(?:\/|$).*/;
+    const imdbRegex = /\/title\/(tt\d+)(\:\d+)?(?:\/|$)/;
     let matches = imdbURL.match(imdbRegex);
     if (matches !== null && matches.length > 1) {
       imdbId = matches[1];
@@ -113,6 +113,7 @@ window.onload = function () {
       if (currentHref != document.location.href) {
         currentHref = document.location.href;
         processPage();
+        console.log("oh no");
       }
     });
   });
@@ -126,3 +127,4 @@ window.onload = function () {
 };
 
 processPage();
+console.log("ohaaa no");
