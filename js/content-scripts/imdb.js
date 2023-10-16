@@ -1,6 +1,6 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = `div.sc-7383924-5`;
+containerOptions.anchorElement = `div.sc-dffc6c81-5`;
 containerOptions.textClass = 'oa-text-sm';
 containerOptions.containerClass = 'oa-mt-2 oa-py-2';
 containerOptions.badgeBackground = '#313131';
