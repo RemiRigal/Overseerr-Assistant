@@ -1,6 +1,6 @@
 {
   "name": "Overseerr Assistant",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "Browser extension for Overseerr that embeds buttons into IMDb and TMDB web pages to easily request movies and tv shows.",
   "permissions": ["storage"],
   "host_permissions": ["http://*/", "https://*/"],
@@ -31,6 +31,10 @@
     "matches": ["https://www.allocine.fr/film/*", "https://www.allocine.fr/series/*"],
     "css": ["css/style.css"],
     "js": ["js/lib/jquery-3.5.1.min.js", "js/storage.js", "js/overseerr-container.js", "js/content-scripts/allocine.js"]
+  }, {
+    "matches": ["https://www.senscritique.com/*"],
+    "css": ["css/style.css"],
+    "js": ["js/lib/jquery-3.5.1.min.js", "js/storage.js", "js/overseerr-container.js", "js/content-scripts/senscritique.js"]
   },{
     "matches": ["https://thetvdb.com/movies/*", "https://thetvdb.com/series/*"],
     "css": ["css/style.css"],

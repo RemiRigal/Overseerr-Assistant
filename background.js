@@ -91,5 +91,20 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         chrome.runtime.openOptionsPage();
         return true;
     }
+
+    else if (request.contentScriptQuery === 'listenForUrlChange') {
+        chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+            if (
+                changeInfo.status === 'complete' &&
+                tab.status === 'complete' &&
+                tab.url &&
+                tab.url.startsWith('https://www.senscritique.com')
+            ) {
+                chrome.tabs.sendMessage(tab.id, {
+                    newUrl: tab.url
+                });
+            }
+        });
+    }
     return false;
 });
