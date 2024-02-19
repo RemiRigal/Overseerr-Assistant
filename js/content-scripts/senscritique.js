@@ -23,7 +23,7 @@ chrome.runtime.sendMessage({contentScriptQuery: 'listenForUrlChange'});
 const checkForMedia = async (urlToCheck) => {
     let matches = urlToCheck.match(senscritiqueRegex);
     if (matches !== null && matches.length > 1) {
-        senscritiqueId = parseInt(matches[1]);
+        mediaType = document.location.pathname.startsWith('/film') ? 'movie' : 'tv';
 
         const titleElement = document.querySelector('h1');
         let title = titleElement.textContent;
