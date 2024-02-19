@@ -1,6 +1,6 @@
 let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = `div.sc-37a83435-0`;
+containerOptions.anchorElement = `div:has(> .ipc-split-button__btn)`;
 containerOptions.textClass = 'oa-text-sm';
 containerOptions.containerClass = 'oa-mt-2 oa-py-2';
 containerOptions.badgeBackground = '#313131';
