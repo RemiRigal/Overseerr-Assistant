@@ -23,6 +23,7 @@ Supported media websites:
 - [Trakt.tv](https://trakt.tv/)
 - [Taste.io](https://www.taste.io/)
 - [Allociné](https://www.allocine.fr/)
+- [Senscritique](https://www.senscritique.com/)
 
 ## Install
 
