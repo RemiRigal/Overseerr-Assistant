@@ -56,24 +56,18 @@ function updateLoggedInStatus(callback) {
     });
 }
 
-function requestPermission(callback) {
-    chrome.permissions.contains({
-        origins: [`${origin}/`]
-    }, function(result) {
-        if (!result) {
-            chrome.permissions.request({
-                origins: [`${origin}/`]
-            }, function(granted) {
-                if (callback) {
-                    if (!granted) {
-                        alert('Not granting this permission will make the extension unusable.');
-                    }
-                    callback(granted);
-                }
-            });
-        } else if (callback) {
-            callback(true);
+function requestPermission(requestOrigin, callback) {
+    browser.permissions.request({
+        origins: [`${requestOrigin}/`]
+    })
+    .then((granted) => {
+        if (!granted) {
+            alert('Not granting this permission will make the extension unusable.');
         }
+        callback(granted);
+    })
+    .catch((_) => {
+        callback(false);
     });
 }
 
@@ -140,8 +134,8 @@ function updateCurrentURL() {
 }
 
 saveButton.onclick = function(ev) {
-    setOrigin(serverAPIKeyInput.value, serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, function() {
-        requestPermission(function(granted) {
+    requestPermission(currentURL.innerHTML, function(granted) {
+        setOrigin(serverAPIKeyInput.value, serverIpInput.value, serverPortInput.value, getProtocol(), serverPathInput.value, function() {
             updateLoggedInStatus();
         });
     });
