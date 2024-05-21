@@ -4,6 +4,10 @@
 [![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/stars/hopnjiadheaagfhpipecoamoegijhnij.svg?style=flat-square)](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij/reviews)
 
+[![Firefox Web Store Version](https://img.shields.io/amo/v/RemiRigal@Overseerr-Assistant.svg?style=flat-square&label=firefox%20add-on)](https://addons.mozilla.org/firefox/addon/overseerr-assistant/)
+[![Firefox Web Store Downloads](https://img.shields.io/amo/users/RemiRigal@Overseerr-Assistant.svg?style=flat-square)](https://addons.mozilla.org/firefox/addon/overseerr-assistant/)
+[![Firefox Web Store Rating](https://img.shields.io/amo/stars/RemiRigal@Overseerr-Assistant.svg?style=flat-square&label=ratings)](https://addons.mozilla.org/firefox/addon/overseerr-assistant/)
+
 Overseerr Assistant is a browser extension for [Overseerr](https://github.com/sct/overseerr) and [Jellyseerr](https://github.com/Fallenbagel/jellyseerr). It provides an integration for most popular media websites.
 
 Features:
@@ -28,6 +32,7 @@ Supported media websites:
 ## Install
 
 **[Available on the Chrome Web Store](https://chrome.google.com/webstore/detail/hopnjiadheaagfhpipecoamoegijhnij)**  
+**[Available on Firefox Add-ons](https://addons.mozilla.org/firefox/addon/overseerr-assistant/)**  
 
 ## Screenshots
 
