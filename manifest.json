@@ -66,11 +66,16 @@
   }],
   "options_page": "options.html",
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
   "web_accessible_resources": [{
     "resources": ["images/icon.png"],
     "matches": ["<all_urls>"]
   }],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "RemiRigal@Overseerr-Assistant"
+    }
+  },
   "manifest_version": 3
 }
