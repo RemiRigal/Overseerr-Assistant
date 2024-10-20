@@ -18,6 +18,11 @@ let director = directorElement ? directorElement.textContent.trim() : null;
 let alternativeTitles = Array.from(document.querySelectorAll('.movie-other-titles ul li strong')).map(title => title.textContent.trim());
 alternativeTitles.push(filmowTitle); // Add main title
 
+let alternativeDates = Array.from(document.querySelectorAll('.release_date > div')).map(date => {
+    let year = date.textContent.trim().match(/\d{4}/);
+    return year ? parseInt(year[0]) : null;
+}).filter(year => year !== null);
+
 /**
  * Helper to search for media by title
  */
@@ -70,6 +75,20 @@ async function exhaustiveSearch(titles) {
 }
 
 /**
+ * Remove (Season X) or (Xª Temporada) from title, array or string
+ */
+function removeSeasonFromTitle(title) {
+    const regex = /\((Season \d+|\d+ª Temporada)\)/gi;
+    if (Array.isArray(title)) {
+        console.log(title.map((t) => t.replace(regex, '').trim()));
+
+        
+        return title.map((t) => t.replace(regex, '').trim());
+    }
+    return title.replace(regex, '').trim();
+}
+
+/**
  * Filters search results by media type, release year, and director
  */
 async function filterResultsByCriteria(results, mediaType, displayedYear, director) {
@@ -81,7 +100,7 @@ async function filterResultsByCriteria(results, mediaType, displayedYear, direct
         let releaseDate = result.releaseDate || result.firstAirDate;
         if (releaseDate) {
             let year = new Date(releaseDate).getFullYear();
-            return year === displayedYear;
+            return year === displayedYear || alternativeDates.includes(year);
         }
         return true;
     });
@@ -118,7 +137,7 @@ async function filterResultsByExactMatch(results, titles, releaseYear) {
         let releaseDate = result.releaseDate || result.firstAirDate;
         if (releaseDate) {
             let year = new Date(releaseDate).getFullYear();
-            return year === releaseYear;
+            return year === releaseYear || alternativeDates.includes(year);
         }
     });
 
@@ -145,7 +164,8 @@ async function handleMediaSearch() {
         }
 
         // Perform exhaustive search with all alternative titles
-        let resultsSearch = await exhaustiveSearch([title, ...alternativeTitles]);
+        let titles = removeSeasonFromTitle([title, ...alternativeTitles]);
+        let resultsSearch = await exhaustiveSearch(titles);
 
         console.log(`Search results for ${title}:`, resultsSearch);
 
@@ -160,7 +180,7 @@ async function handleMediaSearch() {
         results = await filterResultsByCriteria(resultsSearch, mediaType, displayedYear, director);
         // if no results are found, fallback to exact match of title and release year
         if (results.length === 0) {
-            results = await filterResultsByExactMatch(resultsSearch, [title, ...alternativeTitles], displayedYear);
+            results = await filterResultsByExactMatch(resultsSearch, titles, displayedYear);
         }
         console.log('Filtered results:', results);
 
