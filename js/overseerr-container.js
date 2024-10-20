@@ -157,9 +157,9 @@ function insertRequestedButton() {
     `);
 }
 
-function insertStatusButton(statusText, requestCount, availableSeasons) {
+function insertStatusButton(statusText, requestCount, availableSeasons, mediaTitle) {
     const hasBadge = requestCount > 0 || (availableSeasons && availableSeasons.length > 0);
-    const href = tmdbId ? `${origin}/${mediaType}/${tmdbId}` : origin;
+    const href = tmdbId ? `${origin}/${mediaType}/${tmdbId}` : mediaTitle ? `${origin}/search?query=${encodeURIComponent(mediaTitle)}` : origin;
     overseerrContainer.append(`
         <a class="oa-flex oa-h-full oa-group oa-items-center oa-px-4 oa-py-2 ${containerOptions.textClass} oa-leading-6 oa-font-medium oa-rounded${hasBadge ? '-l' : ''}-md overseerr-text-white
             focus:oa-outline-none oa-transition oa-ease-in-out oa-duration-150 oa-bg-gradient-to-br oa-from-indigo-600 oa-to-purple-600 hover:oa-from-indigo-500 hover:oa-to-purple-500" href="${href}" target="_blank">

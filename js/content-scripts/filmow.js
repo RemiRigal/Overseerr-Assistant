@@ -172,7 +172,7 @@ async function handleMediaSearch() {
         // If no results are found, show "Media not found"
         if (resultsSearch.length === 0) {
             removeSpinner();
-            insertStatusButton('Media not found', 0);
+            insertStatusButton('Media not found', 0, null, titles.pop());
             return;
         }
 
@@ -186,7 +186,7 @@ async function handleMediaSearch() {
 
         if (results.length === 0) {
             removeSpinner();
-            insertStatusButton('Media not found', 0);
+            insertStatusButton('Media not found', 0, null, titles.pop());
             return;
         }
 
