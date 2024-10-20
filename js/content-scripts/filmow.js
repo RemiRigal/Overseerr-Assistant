@@ -2,7 +2,7 @@ let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
 containerOptions.anchorElement = '.movie-user-actions';
 containerOptions.textClass = 'text-sm';
-containerOptions.containerClass = 'oa-mt-0 oa-mb-6 oa-py-2';
+containerOptions.containerClass = 'oa-mt-3 oa-mb-2 oa-py-2';
 containerOptions.plexButtonClass = 'oa-bg-gray-800';
 containerOptions.badgeBackground = '#032541';
 
