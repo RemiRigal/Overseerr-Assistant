@@ -38,7 +38,7 @@ function setOrigin(apiKey, ip, port, protocol, path, callback) {
     serverPort = port;
     serverProtocol = protocol;
     serverPath = path;
-    if (serverPort.length==0){
+    if (serverPort.length===0){
         origin = `${serverProtocol}://${serverIp}${serverPath}`;
     }
     else {
