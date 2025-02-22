@@ -5,7 +5,7 @@ function pullStoredData(callback) {
     chrome.storage.sync.get(['serverAPIKey', 'serverIp', 'serverPort', 'serverProtocol', 'serverPath', 'userId', 'overseerrVersion'], function(data) {
         serverAPIKey = data.serverAPIKey || '';
         serverIp = data.serverIp || '172.0.0.1';
-        serverPort = data.serverPort || 8001;
+        serverPort = data.serverPort;
         serverProtocol = data.serverProtocol || 'http';
         serverPath = data.serverPath || '/'
         origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
@@ -38,7 +38,12 @@ function setOrigin(apiKey, ip, port, protocol, path, callback) {
     serverPort = port;
     serverProtocol = protocol;
     serverPath = path;
-    origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
+    if (serverPort.length==0){
+        origin = `${serverProtocol}://${serverIp}${serverPath}`;
+    }
+    else {
+        origin = `${serverProtocol}://${serverIp}:${serverPort}${serverPath}`;
+    }
     if (origin.endsWith('/')) {
         origin = origin.slice(0, origin.length - 1);
     }
