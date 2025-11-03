@@ -11,7 +11,7 @@ mediaType = document.location.pathname.startsWith('/m') ? 'movie' : 'tv';
 
 let title = $('rt-text[slot=title]').first().text();
 if (mediaType === 'tv') {
-    containerOptions.anchorElement = 'section#topSection';
+    // containerOptions.anchorElement = 'section#topSection';
 } else {
     // movie
 }
