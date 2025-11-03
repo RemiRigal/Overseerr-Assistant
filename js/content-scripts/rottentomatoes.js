@@ -1,19 +1,19 @@
 let overseerrContainer, allocineId, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = 'div.thumbnail-scoreboard-wrap';
+containerOptions.shadowRoot = document.querySelector("media-hero").shadowRoot;
+containerOptions.anchorElement = '.watchlist-cta';
 containerOptions.textClass = 'text-sm';
-containerOptions.containerClass = 'oa-mt-0 oa-mb-6 oa-py-2';
+containerOptions.containerClass = 'oa-mt-0 oa-h-full';
 containerOptions.plexButtonClass = 'oa-bg-gray-800';
 containerOptions.badgeBackground = '#032541';
 
 mediaType = document.location.pathname.startsWith('/m') ? 'movie' : 'tv';
 
-let title = '';
+let title = $('rt-text[slot=title]').first().text();
 if (mediaType === 'tv') {
     containerOptions.anchorElement = 'section#topSection';
-    title = $('#scoreboard h1.title').text();
 } else {
-    title = $('#scoreboard h1.title').text();
+    // movie
 }
 
 if (title) {
