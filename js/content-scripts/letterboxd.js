@@ -5,7 +5,7 @@ containerOptions.containerClass = 'oa-py-5';
 containerOptions.plexButtonClass = '';
 containerOptions.badgeBackground = '#283038';
 
-tmdbButton = $('a[data-track-action=TMDb]:first');
+tmdbButton = $('a[data-track-action=TMDB]:first');
 tmdbURL = tmdbButton.attr('href');
 
 if (tmdbURL.includes('/movie/')) {
