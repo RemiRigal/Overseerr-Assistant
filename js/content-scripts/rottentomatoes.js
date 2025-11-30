@@ -1,9 +1,9 @@
 let overseerrContainer, allocineId, tmdbId, mediaType, mediaInfo;
 
 containerOptions.shadowRoot = document.querySelector("media-hero").shadowRoot;
-containerOptions.anchorElement = '.watchlist-cta';
-containerOptions.textClass = 'text-sm';
-containerOptions.containerClass = 'oa-mt-0 oa-h-full';
+containerOptions.anchorElement = '.metadata';
+containerOptions.textClass = 'oa-text-sm';
+containerOptions.containerClass = 'oa-mt-3 oa-h-full';
 containerOptions.plexButtonClass = 'oa-bg-gray-800';
 containerOptions.badgeBackground = '#032541';
 
