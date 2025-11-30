@@ -28,6 +28,7 @@ Supported media websites:
 - [Taste.io](https://www.taste.io/)
 - [Allociné](https://www.allocine.fr/)
 - [Senscritique](https://www.senscritique.com/)
+- [Filmow](https://filmow.com/)
 
 ## Install
 
