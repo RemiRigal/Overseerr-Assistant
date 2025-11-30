@@ -1,37 +1,12 @@
-let overseerrContainer, imdbId, tmdbId, mediaType, mediaInfo;
+let overseerrContainer, tmdbId, mediaType, mediaInfo;
 
-containerOptions.anchorElement = `div.title-sidebar > aside > div > button.basic-button:first`;
-containerOptions.textClass = '';
+containerOptions.anchorElement = `div.title-sidebar > div > button.basic-button:first`;
+containerOptions.textClass = 'oa-text-sm';
 containerOptions.containerClass = 'oa-mt-6 oa-mb-3 oa-py-3';
 containerOptions.badgeBackground = '#313131';
 
 let waiting = false;
 let currentHref = document.location.href;
-
-
-function searchMedia() {
-    chrome.runtime.sendMessage({contentScriptQuery: 'search', title: `imdb:${imdbId}`}, json => {
-        if (json.results.length === 0) {
-            removeSpinner();
-            insertStatusButton('Media not found', 0);
-            return;
-        }
-        const firstResult = json.results[0];
-        mediaType = firstResult.mediaType;
-        chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: mediaType}, json => {
-            if (imdbId === json.externalIds.imdbId) {
-                mediaInfo = json;
-                tmdbId = json.id;
-                console.log(`TMDB id: ${tmdbId}`);
-                removeSpinner();
-                fillContainer(json.mediaInfo);
-            } else {
-                removeSpinner();
-                insertStatusButton('Media not found', 0);
-            }
-        });
-    });
-}
 
 
 function processPage() {
@@ -42,47 +17,49 @@ function processPage() {
     }
 
     waiting = true;
-    waitForElm('div[v-uib-tooltip=IMDB]').then(() => {
-        waiting = false;
-        imdbButton = $('div[v-uib-tooltip=IMDB]:first > a');
-
-        if (imdbButton === null && imdbButton.attr('href') === undefined) {
-            return;
-        }
-        imdbURL = imdbButton.attr('href');
-
-        const imdbRegex = /\/title\/(tt\d+)(?:\/|$).*/;
-        let matches = imdbURL.match(imdbRegex);
-        if (matches !== null && matches.length > 1) {
-            imdbId = matches[1];
-            console.log(`IMDb id: ${imdbId}`);
+    waitForElm('label.search-icon').then(() => {
+        waitForElm('div.title-sidebar').then(() => {
+            waiting = false;
+            titleElement = $('div.title-detail-hero').find('h1:first');
+            if (titleElement === null) {
+                return;
+            }
 
             initializeContainer();
             insertSpinner();
 
+            let titleWithDate = titleElement.text();
+            let title = titleWithDate;
+
+            let titleMatches = titleWithDate.match(/\s*(.*)\s+\(\d{4}\)\s*/);
+            if (titleMatches !== null && titleMatches.length > 1) {
+                title = titleMatches[1];
+            }
+            
             pullStoredData(function () {
                 if (!userId) {
                     removeSpinner();
                     insertNotLoggedInButton();
                     return;
                 }
-                chrome.runtime.sendMessage({contentScriptQuery: 'getOverseerrVersion'}, json => {
-                    if (!json.version || json.version.localeCompare("1.29.0", undefined, { numeric: true, sensitivity: 'base' }) < 0) {
-                        chrome.runtime.sendMessage({contentScriptQuery: 'checkJellyseerr'}, isJellyseerr => {
-                            if (isJellyseerr) {
-                                searchMedia();
-                            } else {
-                                removeSpinner();
-                                insertStatusButton('Please update to Overseerr 1.29.0+', 0);
-                                return;
-                            }
-                        });
-                    } else {
-                        searchMedia();
+
+                chrome.runtime.sendMessage({contentScriptQuery: 'search', title: title}, json => {
+                    if (json.results.length === 0) {
+                        removeSpinner();
+                        insertStatusButton('Media not found', 0);
+                        return;
                     }
+                    const firstResult = json.results[0];
+                    chrome.runtime.sendMessage({contentScriptQuery: 'queryMedia', tmdbId: firstResult.id, mediaType: firstResult.mediaType}, json => {
+                        mediaInfo = json;
+                        tmdbId = json.id;
+                        console.log(`TMDB id: ${tmdbId}`);
+                        removeSpinner();
+                        fillContainer(json.mediaInfo);
+                    });
                 });
             });
-        }
+        });
     });
 }
 
