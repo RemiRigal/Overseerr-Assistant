@@ -1,4 +1,5 @@
 let containerOptions = {
+    shadowRoot: null,
     anchorElement: 'body',
     textClass: '',
     containerClass: '',
@@ -40,7 +41,15 @@ function initializeContainer() {
          <img id="overseerrStatus" class="overseerr-icon" src="${chrome.runtime.getURL('images/icon.png')}" alt="Overseerr icon">
        </div>
     `);
-    let anchor = $(`${containerOptions.anchorElement}:first`);
+    let root = $;
+    if (containerOptions.shadowRoot) {
+        root = $(containerOptions.shadowRoot);
+        const src = chrome.runtime.getURL("css/style.css");
+        import(src, { with: { type: 'css'}}).then((contentMain) => {
+            containerOptions.shadowRoot.adoptedStyleSheets.push(contentMain.default);
+        });
+    }
+    let anchor = root.find(`${containerOptions.anchorElement}:first`);
     if (!anchor) {
         console.error('Anchor element not found for Overseerr container');
     }
@@ -112,7 +121,7 @@ function insertRequestButton() {
           <span>Request</span>
         </a>
     `);
-    $('#overseerrRequest').on('click', function() {
+    overseerrContainer.find('#overseerrRequest').on('click', function() {
         removeRequestButton();
         insertSpinner();
         let seasons = [];
@@ -204,7 +213,7 @@ function insertNotLoggedInButton() {
           <span>Login to Overseerr</span>
         </button>
     `);
-    $('#overseerrOptions').on('click', function() {
+    overseerrContainer.find('#overseerrOptions').on('click', function() {
         chrome.runtime.sendMessage({contentScriptQuery: 'openOptionsPage'});
     });
 }

@@ -69,7 +69,7 @@
     "service_worker": "background.js"
   },
   "web_accessible_resources": [{
-    "resources": ["images/icon.png"],
+    "resources": ["images/icon.png", "css/style.css"],
     "matches": ["<all_urls>"]
   }],
   "manifest_version": 3
