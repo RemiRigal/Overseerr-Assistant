@@ -14,7 +14,7 @@ if (matches !== null && matches.length > 1) {
     allocineId = parseInt(matches[1]);
     console.log(`Allocine id: ${allocineId}`);
 
-    let title = $('div.titlebar-title.titlebar-title-lg').text();
+    let title = $('div.titlebar-title.titlebar-title-xl').text();
 
     let releaseYear = null;
     if (mediaType === 'movie') {
